@@ -136,7 +136,7 @@ public class VoiceAlert extends Fragment {
                 user_chat += matches.get(i);
             }
             // Chat_API 주소지 박아줄것.
-            request_Chat(user_chat,"http://10.0.2.2:8080/chat_request");
+            request_Chat(user_chat,"http://ee9f-34-143-234-35.ngrok.io/chat_request");
 
         }
 
