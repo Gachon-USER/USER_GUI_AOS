@@ -33,7 +33,7 @@ import static android.speech.tts.TextToSpeech.ERROR;
 
 public class VoiceAlert extends Fragment {
     MainActivity mainActivity;
-    private TextToSpeech tts
+    private TextToSpeech tts;
 
     Intent intent;
     SpeechRecognizer speechRecognizer;
