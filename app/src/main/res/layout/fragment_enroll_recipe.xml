@@ -82,7 +82,7 @@
             android:ems="10"
             android:inputType="text"
             android:background="@drawable/btn6"
-            android:text="파일 업로드" />
+            android:text="사진 업로드" />
 
     </LinearLayout>
 
