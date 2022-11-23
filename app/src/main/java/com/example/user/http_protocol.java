@@ -18,7 +18,7 @@ public class http_protocol extends Thread{
     String mURL = null;
     String body = null;
     MainActivity.MyHandler handler = null;
-    int control;
+    static int control;
 
     public http_protocol(String input,String uri,MainActivity.MyHandler handler, int control){
 
@@ -44,6 +44,11 @@ public class http_protocol extends Thread{
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setDoInput(true);
+            if(control == 102){
+                String param = "id=" + 0 + "&pw=" + 0;
+                con.getOutputStream().write(
+                        param.getBytes("utf-8"));
+            }
             con.setUseCaches(false);
             con.setReadTimeout(1000);
             con.setConnectTimeout(1000);

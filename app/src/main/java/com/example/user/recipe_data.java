@@ -3,15 +3,20 @@ package com.example.user;
 public class recipe_data {
 
     String[] ingredient;
+    String[] ingredient_cp;
     String[] recipe;
     int maxPage;
     int maxItem;
 
-    public recipe_data(String[] ingredient, String[] recipe, int maxPage, int maxItem){
+    recipe_info info;
+
+    public recipe_data(String[] ingredient, String[] ingredient_cp, String[] recipe, int maxPage, int maxItem,recipe_info info){
         this.ingredient = ingredient;
+        this.ingredient_cp = ingredient_cp;
         this.recipe = recipe;
         this.maxPage = maxPage;
         this.maxItem = maxItem;
+        this.info = info;
     }
 
     public String getRecipeData (int page){
@@ -30,7 +35,15 @@ public class recipe_data {
         return result;
     }
 
-    public int getMaxPage (){
+    public String getIngredient_cp (int page){
+        String result = new String();
+
+        result = ingredient_cp[page];
+
+        return result;
+    }
+
+    public int getMaxPage(){
         return maxPage;
     }
 
@@ -52,5 +65,25 @@ public class recipe_data {
 
     public void setMaxPage(int maxPage) {
         this.maxPage = maxPage;
+    }
+
+    public void setInfo(recipe_info info) {
+        this.info = info;
+    }
+
+    public int getID() {
+        return info.getID();
+    }
+
+    public String getName() {
+        return info.getName();
+    }
+
+    public String getUrl() {
+        return info.getUrl();
+    }
+
+    public void setIngredient_cp(String[] ingredient_cp) {
+        this.ingredient_cp = ingredient_cp;
     }
 }

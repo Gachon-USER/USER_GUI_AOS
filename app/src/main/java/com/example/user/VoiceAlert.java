@@ -11,6 +11,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +23,17 @@ import android.widget.Toast;
 
 import java.security.Permission;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import static android.speech.tts.TextToSpeech.ERROR;
 
 
 public class VoiceAlert extends Fragment {
     MainActivity mainActivity;
+    private TextToSpeech tts
 
     Intent intent;
     SpeechRecognizer speechRecognizer;
@@ -170,6 +175,7 @@ public class VoiceAlert extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_voice_alert, container, false);
 
         CheckPermission();
+
 
         bar = rootView.findViewById(R.id.progressBar);
         test = rootView.findViewById(R.id.test);
@@ -323,13 +329,17 @@ public class VoiceAlert extends Fragment {
         if (control == 0) {
             //this.setTimer();
             Toast.makeText(mainActivity.getApplicationContext(), "타이머 설정", Toast.LENGTH_SHORT).show();
+            speak("타이머를 설정합니다.");
         } else if(control == 1){
             this.control(true);
+            speak(test.getText().toString());
         } else if(control == 2){
             this.control(false);
+            speak(test.getText().toString());
         } else if(control == 3){
             //this.repeat();
             Toast.makeText(mainActivity.getApplicationContext(), "다시듣기 실행", Toast.LENGTH_SHORT).show();
+            speak("다시듣기 " + test.getText().toString());
         }
     }
 
@@ -342,5 +352,23 @@ public class VoiceAlert extends Fragment {
         current_index = 0;
         maxIndex = this.data.getMaxPage();
         recipeNowString = this.data.getRecipeData(current_index);
+    }
+
+    public void speak(String text){
+        tts = new TextToSpeech(mainActivity.getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status != ERROR){
+                    int result = tts.setLanguage(Locale.KOREA); // 언어 선택
+                    if(result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA){
+                        Log.e("TTS", "This Language is not supported");
+                    }else{
+                        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+                    }
+                }else{
+                    Log.e("TTS", "Initialization Failed!");
+                }
+            }
+        });
     }
 }
