@@ -39,7 +39,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 //mainActivity.fragmentChange(2); 잠시 RecipeView 기능 확인 위해 코멘트 아웃 처리.
-                mainActivity.fragmentChange(7);
+                mainActivity.fragmentChange(2);
             }
 
         });

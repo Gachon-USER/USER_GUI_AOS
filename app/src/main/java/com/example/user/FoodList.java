@@ -3,13 +3,18 @@ package com.example.user;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +27,9 @@ import java.util.concurrent.ExecutionException;
 
 
 public class FoodList extends Fragment {
+
+
+    ArrayList<SampleData> movieDataList;
 
     MainActivity mainActivity;
 
@@ -47,7 +55,30 @@ public class FoodList extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_food_list, container, false);
 
+
+        this.InitializeMovieData();
+
         Button button = rootView.findViewById(R.id.tob);
+
+        ListView listView = rootView.findViewById(R.id.listView1);
+
+        final MyAdapter myAdapter = new MyAdapter(getActivity(),movieDataList);
+
+        listView.setAdapter(myAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView parent, View v, int position, long id){
+
+
+
+                    mainActivity.fragmentChange(7);
+
+
+
+            }
+        });
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +88,7 @@ public class FoodList extends Fragment {
 
         });
 
-        Button button_ex = rootView.findViewById(R.id.toErl);
+        ImageButton button_ex = rootView.findViewById(R.id.toE);
 
         button_ex.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +103,18 @@ public class FoodList extends Fragment {
         return rootView;
 
     }
+
+
+    public void InitializeMovieData()
+    {
+        movieDataList = new ArrayList<SampleData>();
+
+        movieDataList.add(new SampleData(R.drawable.play, "라면","해물라면"));
+        movieDataList.add(new SampleData(R.drawable.stg, "라면","차돌 라면"));
+        movieDataList.add(new SampleData(R.drawable.emo, "라면","떡라면"));
+    }
+
+
 
     public void make_recipe_data(recipeCooking[] cookings, recipeIngredient[] ingredients,recipe_info info){
 
