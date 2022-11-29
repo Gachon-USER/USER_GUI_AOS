@@ -21,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.security.Permission;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -44,7 +43,8 @@ public class VoiceAlert extends Fragment {
     Button buttonNext;
     Button buttonPrev;
     Button buttonStart;
-    TextView test; // GUI 상에 추가될 스트링 출력 부분 (현재는 기능구현을 위한 임시 텍스트 뷰 )
+    TextView recipeText;
+    TextView pageText;
     ProgressBar bar;
     String result = null;
     // 메인 액티비티 위에 올린다.
@@ -141,7 +141,7 @@ public class VoiceAlert extends Fragment {
                 user_chat += matches.get(i);
             }
             // Chat_API 주소지 박아줄것.
-            request_Chat(user_chat,"http://ee9f-34-143-234-35.ngrok.io/chat_request");
+            request_Chat(user_chat,"http://10.0.2.2:8080/chat_request");
 
         }
 
@@ -178,8 +178,12 @@ public class VoiceAlert extends Fragment {
 
 
         bar = rootView.findViewById(R.id.progressBar);
-        test = rootView.findViewById(R.id.test);
-        test.setText(recipeNowString);
+        recipeText = rootView.findViewById(R.id.tmpTextView);
+        pageText = rootView.findViewById(R.id.test);
+
+        recipeText.setText(recipeNowString);
+        pageText.setText(Integer.toString(current_index));
+        speak("" + recipeNowString);
 
         barCurrentValue = bar.getProgress();
         barMaxValue = bar.getMax();
@@ -296,7 +300,8 @@ public class VoiceAlert extends Fragment {
 
     public void ResetText(){
         recipeNowString = data.getRecipeData(current_index);
-        test.setText(recipeNowString);
+        recipeText.setText(recipeNowString);
+        pageText.setText(Integer.toString(current_index));
     }
 
     public void CheckPermission() {
@@ -315,7 +320,7 @@ public class VoiceAlert extends Fragment {
     public void request_Chat(String user_chat, String Url){
 
         String JSON = "{\"chatString\":\""+user_chat+"\"}";
-        mainActivity.sendHttpApi(JSON,Url,106);
+        mainActivity.sendHttpApi(JSON,Url,106,-1);
     }
 
     public void Chat_result(int control){
@@ -330,16 +335,16 @@ public class VoiceAlert extends Fragment {
             //this.setTimer();
             Toast.makeText(mainActivity.getApplicationContext(), "타이머 설정", Toast.LENGTH_SHORT).show();
             speak("타이머를 설정합니다.");
-        } else if(control == 1){
-            this.control(true);
-            speak(test.getText().toString());
         } else if(control == 2){
+            this.control(true);
+            speak("" + recipeNowString);
+        } else if(control == 1){
             this.control(false);
-            speak(test.getText().toString());
+            speak(" "+ recipeNowString);
         } else if(control == 3){
             //this.repeat();
             Toast.makeText(mainActivity.getApplicationContext(), "다시듣기 실행", Toast.LENGTH_SHORT).show();
-            speak("다시듣기 " + test.getText().toString());
+            speak("다시듣기 " + recipeNowString);
         }
     }
 

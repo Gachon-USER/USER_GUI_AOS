@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void sendHttpApi(String data, String uri, int control){
+    public void sendHttpApi(String data, String uri, int control,int ID){
 
         http_protocol http = new http_protocol(data,uri,handle,control);
 
@@ -167,7 +167,21 @@ public class MainActivity extends AppCompatActivity {
                     case 102:
 
                         result = (String) msg.obj;
-                        activity.frameLayout2.send_result(result);
+                        activity.frameLayout2.send_result(result,0);
+                        break;
+                    // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
+
+                    case 1021:
+
+                        result = (String) msg.obj;
+                        activity.frameLayout2.send_result(result,1);
+                        break;
+                    // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
+
+                    case 1022:
+
+                        result = (String) msg.obj;
+                        activity.frameLayout2.send_result(result,2);
                         break;
                     // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
 

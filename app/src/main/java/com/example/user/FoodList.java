@@ -3,7 +3,6 @@ package com.example.user;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,18 +21,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 public class FoodList extends Fragment {
 
 
-    ArrayList<SampleData> movieDataList;
+    ArrayList<recipe_info> recipeDataList;
 
     MainActivity mainActivity;
 
     JSONObject jsonObject = null;
-    List<recipe_data> recipeList = null;   // 현재는 대충 List 형태로 때웠지만 추후 서버 구조가 확립되고 + UI 리스트 표시 형태도 정해지면 변동 해야함.
     // 메인 액티비티 위에 올린다.
     @Override
     public void onAttach(Context context) {
@@ -53,32 +49,30 @@ public class FoodList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_food_list, container, false);
-
-
-        this.InitializeMovieData();
 
         Button button = rootView.findViewById(R.id.tob);
 
         ListView listView = rootView.findViewById(R.id.listView1);
 
-        final MyAdapter myAdapter = new MyAdapter(getActivity(),movieDataList);
+        this.InitializeRecipeData();
 
-        listView.setAdapter(myAdapter);
+        this.get_recipe_data(102,-1);
+
+        final RecipeAdapter recipeAdapter = new RecipeAdapter(getActivity(), recipeDataList);
+
+        listView.setAdapter(recipeAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id){
-
-
-
-                    mainActivity.fragmentChange(7);
-
-
-
+                int ID = recipeDataList.get(position).getID();
+                mainActivity.frameLayout7.setData(load_recipe(ID));
+                //mainActivity.frameLayout7.setData(load_recipe(ID));
+                mainActivity.fragmentChange(7);
             }
         });
-
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,125 +82,148 @@ public class FoodList extends Fragment {
 
         });
 
-        ImageButton button_ex = rootView.findViewById(R.id.toE);
+        /*ImageButton button_ex = rootView.findViewById(R.id.toE);
 
         button_ex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.frameLayout7.setData(recipeList.get(0)); // 지금은 그냥 0번 인덱스로 퉁쳐져 있으나 차후 해당 아이템의 recipe_data 인덱스를 찾아서 넘겨줘야 함.
+                int ID = 0;
+                mainActivity.frameLayout7.setData(tmp_load_recipe(ID)); // 지금은 그냥 0번 인덱스로 퉁쳐져 있으나 차후 해당 아이템의 recipe_data 인덱스를 찾아서 넘겨줘야 함.
                 mainActivity.fragmentChange(7);
                 //일단 지금은 방식 전검을 위해 이런식으로 아직 빈 버튼에 구현하였지만 추후 보여줄 아이템 별로 해당 아이템에 같은 구조로 로직 처리 해야함
             }
 
-        });
+        });*/
 
         return rootView;
 
     }
 
+    public recipe_data load_recipe(int ID){
+        // 추가 개발 필요 (스프링 서버 http 요청, ID 값에 해당하는 레시피 추가 데이터 호출 및 데이터화.)
+        // 필요 데이터를 어캐 끌어다 가져오는가에 대해선 위에 tmp 함수 형태처럼 만들면 됨.
 
-    public void InitializeMovieData()
+        ArrayList<recipeCooking> cooking_list;
+        ArrayList<recipeIngredient> ingredient_list;
+
+        get_recipe_data(1021,ID);
+
+        recipe_data ptr = new recipe_data();
+
+        return ptr;
+    }
+
+    public void InitializeRecipeData()
     {
-        movieDataList = new ArrayList<SampleData>();
-
-        movieDataList.add(new SampleData(R.drawable.play, "라면","해물라면"));
-        movieDataList.add(new SampleData(R.drawable.stg, "라면","차돌 라면"));
-        movieDataList.add(new SampleData(R.drawable.emo, "라면","떡라면"));
+        recipeDataList = new ArrayList<recipe_info>();
     }
 
-
-
-    public void make_recipe_data(recipeCooking[] cookings, recipeIngredient[] ingredients,recipe_info info){
-
-        String[] ingredient = new String[ingredients.length];
-        String[] ingredient_cp = new String[ingredients.length];
-        String[] recipe = new String[cookings.length];
-
-        for (recipeCooking cooking : cookings) {
-            int idx = cooking.getCooking_order_no();
-            String tmp = cooking.getCooking_order();
-            recipe[idx] = tmp;
-        }
-
-        for(int i=0;i<ingredients.length;i++){
-            String name_tmp = ingredients[i].getIngredient_Name();
-            String cp_tmp = ingredients[i].getGetIngredient_Cp();
-            ingredient[i] = name_tmp;
-            ingredient_cp[i] = cp_tmp;
-        }
-
-        recipe_data tmp = new recipe_data(ingredient,ingredient_cp,recipe, cookings.length, ingredients.length,info);
-
-        recipeList.add(tmp);
-    }
-
-    public void get_recipe_data(){
-
-        if(recipeList !=null){
-            recipeList = null;
-        }
-
-        String Url = "http://10.0.2.2:8080/android";
+    public void get_recipe_data(int con, int ID){
+        String Url = "http://172.30.1.52:8080/android/recipeList";
         String JSON = "";
-        mainActivity.sendHttpApi(JSON,Url,102);
+        mainActivity.sendHttpApi(JSON,Url,con,ID);
     }
 
-    public String[] getStringvalues(JSONObject jsonObject){//레시피 단계별 설명만 return
-        Log.d("AG", "함수호출됨");
-        List<String> recipeString = new ArrayList<String>();
+    public void set_recipe_info_list(JSONObject input){
+
         try {
-            JSONArray arr = (JSONArray)jsonObject.get("recipe");
-            List<JSONObject> copyList = new ArrayList<JSONObject>();
+            JSONArray list = input.getJSONArray("recipelist");
 
-            for (int i=0; i<arr.length(); i++){
-                copyList.add((JSONObject) arr.get(i)); // list 에 삽입 실시
-            }
+            for(int i=0;i< list.length();i++){
+                JSONObject tmp = list.getJSONObject(i);
 
-            for (JSONObject item:copyList) {
-                recipeString.add(String.valueOf(item.get("COOKING_DC")));
+                int tmp_ID = tmp.getInt("ID");
+                String tmp_image_url = tmp.getString("imgsrc");
+                String tmp_Name = tmp.getString("Name");
+
+                recipe_info tmp_info = new recipe_info(tmp_ID,tmp_image_url,tmp_Name);
+
+                recipeDataList.add(tmp_info);
             }
 
         } catch (JSONException e) {
+            Log.d("json_error", "String to json Object fail");
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<recipeIngredient> set_recipeIngredient_list(JSONObject input){
+
+        ArrayList<recipeIngredient> ingredient_list = new ArrayList<recipeIngredient>();
+
+        try {
+            JSONArray list = input.getJSONArray("recipeIngredient");
+
+            for(int i=0;i< list.length();i++){
+                JSONObject tmp = list.getJSONObject(i);
+
+                int tmp_idx = tmp.getInt("idx_ing");
+                String tmp_Name = tmp.getString("ingredient_name");
+                String tmp_CP = tmp.getString("ingredient_Cp");
+
+                recipeIngredient tmp_ingredient = new recipeIngredient(tmp_idx,tmp_Name,tmp_CP,-1);
+
+                ingredient_list.add(tmp_ingredient);
+            }
+
+        } catch (JSONException e) {
+            Log.d("json_error", "String to json Object fail");
             e.printStackTrace();
         }
 
-        String[] recipespringarray = recipeString.toArray(new String[0]);
-        Log.d("s", Arrays.toString(recipespringarray));
-        return recipespringarray;
-    } // 해당 함수 구조 자체가 처음 접근되는 0번 레시피 데이터에 국한되어 동작하는것으로 보임. => 차후 변경 작업 필요.
+        return ingredient_list;
+    }
 
-    public void send_result (String result){
+    public ArrayList<recipeCooking> set_recipeCooking_list(JSONObject input){
+
+        ArrayList<recipeCooking> cooking_list = new ArrayList<recipeCooking>();
+
         try {
-            JSONObject jsonObject = new JSONObject(result);
+            JSONArray list = input.getJSONArray("recipe");
+
+            for(int i=0;i< list.length();i++){
+                JSONObject tmp = list.getJSONObject(i);
+
+                int tmp_idx = tmp.getInt("idx");
+                String tmp_order = tmp.getString("cooking_order");
+                int tmp_no = tmp.getInt("cooking_order_no");
+
+                recipeCooking tmp_cook = new recipeCooking(tmp_idx,tmp_order,tmp_no,-1);
+
+                cooking_list.add(tmp_cook);
+            }
+
+        } catch (JSONException e) {
+            Log.d("json_error", "String to json Object fail");
+            e.printStackTrace();
+        }
+
+        return cooking_list;
+    }
+
+    public void send_result (String result, int con){
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(result);
         } catch (JSONException e) {
             Log.d("json_error","String to json Object fail");
             e.printStackTrace();
         }
-        this.jsonObject = jsonObject;
 
-        String[] tmp_recipe ;
-        String[] tmp_item = {"1","2","3"};
-        int tmp_maxRecipe = 5;
-        int tmp_maxItem = 3;
-
-        tmp_recipe = getStringvalues(jsonObject);
-        //recipe_data tmp = new recipe_data(tmp_item,tmp_recipe,tmp_maxRecipe, tmp_maxItem);
-
-        //recipeList.add(tmp);
+        switch (con){
+            case 0:
+                set_recipe_info_list(jsonObject);
+                break;
+            case 1:
+                ArrayList<recipeIngredient> ingredient_list = set_recipeIngredient_list(jsonObject);
+                break;
+            case 2:
+                ArrayList<recipeCooking> cooking_list = set_recipeCooking_list(jsonObject);
+                break;
+        }
 
     } // http_protocol 부분을 Httpjson 으로 변경 (Asynctask 관련 문제로 인한 미지원)
 
-    public int howmanypages(JSONObject jsonObject){//레시피 단계가 몇단계인지
-        int i=0;
-        try {
-            JSONArray arr = (JSONArray)jsonObject.get("recipe");
-            for(i=0;i<arr.length();i++){
-                Log.d("AG", String.valueOf(i));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return i;
-    } // 이건 아직 미작동 이지만 일단 옴겨와둠.
 }

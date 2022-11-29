@@ -44,7 +44,7 @@ public class http_protocol extends Thread{
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setDoInput(true);
-            if(control == 102){
+            if(control == 112){
                 String param = "id=" + 0 + "&pw=" + 0;
                 con.getOutputStream().write(
                         param.getBytes("utf-8"));

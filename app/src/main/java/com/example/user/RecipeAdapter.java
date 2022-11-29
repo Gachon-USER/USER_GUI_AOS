@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends BaseAdapter {
+public class RecipeAdapter extends BaseAdapter {
 
     Context mContext = null;
     LayoutInflater mLayoutInflater = null;
-    ArrayList<SampleData> sample;
+    ArrayList<recipe_info> sample;
 
-    public MyAdapter(Context context, ArrayList<SampleData> data) {
+    public RecipeAdapter(Context context, ArrayList<recipe_info> data) {
         mContext = context;
         sample = data;
         mLayoutInflater = LayoutInflater.from(mContext);
@@ -33,7 +33,7 @@ public class MyAdapter extends BaseAdapter {
     }
 
     @Override
-    public SampleData getItem(int position) {
+    public recipe_info getItem(int position) {
         return sample.get(position);
     }
 
@@ -42,12 +42,12 @@ public class MyAdapter extends BaseAdapter {
         View view = mLayoutInflater.inflate(R.layout.item, null);
 
         ImageView imageView = (ImageView)view.findViewById(R.id.poster);
-        TextView movieName = (TextView)view.findViewById(R.id.movieName);
-        TextView grade = (TextView)view.findViewById(R.id.grade);
+        TextView recipeName = (TextView)view.findViewById(R.id.movieName);
+        //TextView grade = (TextView)view.findViewById(R.id.grade);
 
-        imageView.setImageResource(sample.get(position).getPoster());
-        movieName.setText(sample.get(position).getMovieName());
-        grade.setText(sample.get(position).getGrade());
+        //imageView.setImageResource(sample.get(position).getPoster());
+        recipeName.setText(sample.get(position).getName());
+        //grade.setText(sample.get(position));
 
         return view;
     }
