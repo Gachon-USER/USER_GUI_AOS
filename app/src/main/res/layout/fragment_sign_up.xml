@@ -5,6 +5,24 @@
     android:orientation="vertical" >
 
 
+
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -106,6 +124,37 @@
 
                 <Button
                     android:id="@+id/check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:layout_gravity="left"
+                    android:background="@drawable/btn1"
+                    android:text="중복확인" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="닉네임"
+                    android:textSize="15dp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/font"/>
+
+
+                <EditText
+                    android:background="@drawable/inputbox"
+                    android:id="@+id/id2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#032149"
+                    android:ems="15"
+                    android:inputType="text"
+                    android:text="닉네임을 입력하세요"
+                    android:layout_gravity="center" />
+
+
+                <Button
+                    android:id="@+id/checkN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -301,4 +350,9 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>
