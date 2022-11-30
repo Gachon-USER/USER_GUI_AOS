@@ -17,21 +17,24 @@ import javax.net.ssl.HttpsURLConnection;
 public class http_protocol extends Thread{
     String mURL = null;
     String body = null;
+    int ID = -1;
     MainActivity.MyHandler handler = null;
-    static int control;
+    int control;
 
-    public http_protocol(String input,String uri,MainActivity.MyHandler handler, int control){
+    public http_protocol(String input,String uri,MainActivity.MyHandler handler, int control,int ID){
 
         body = input;
 
         mURL = uri;
+
+        this.ID = ID;
 
         this.handler = handler;
 
         this.control = control;
     }
 
-    public static String httpPostBodyConnection(String UrlData, String ParamData) {
+    public String httpPostBodyConnection(String UrlData, String ParamData, int ID) {
 
         Log.d("http","body : "+ParamData);
         String result = "";
@@ -40,15 +43,18 @@ public class http_protocol extends Thread{
         BufferedReader reader = null;
         try{
 
+            if(this.control == 1021 || this.control == 1022){
+                String param = "?id=" + Integer.toString(ID);
+                Log.d("param",param);
+                UrlData = UrlData+param;
+            }
+
             URL url = new URL(UrlData);
+
+
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setDoInput(true);
-            if(control == 112){
-                String param = "id=" + 0 + "&pw=" + 0;
-                con.getOutputStream().write(
-                        param.getBytes("utf-8"));
-            }
             con.setUseCaches(false);
             con.setReadTimeout(1000);
             con.setConnectTimeout(1000);
@@ -110,7 +116,7 @@ public class http_protocol extends Thread{
     @Override
     public void run() {
 
-        String result = httpPostBodyConnection(mURL,body);
+        String result = httpPostBodyConnection(mURL,body,ID);
 
         if(result != null){
             Message message = handler.obtainMessage(control,result);
