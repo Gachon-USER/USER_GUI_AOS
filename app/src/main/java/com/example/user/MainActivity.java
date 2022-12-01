@@ -159,8 +159,32 @@ public class MainActivity extends AppCompatActivity {
                     // http 클래스에서 JSON 데이터를 넘겨받은 경우.
 
                     result = (String) msg.obj;
-                    //activity.frameLayout1.send_result(result);
+                    activity.frameLayout1.send_recommand_result(result);
                     // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
+                }else if(msg.what == 1010) {
+
+                    result = (String) msg.obj;
+                    activity.frameLayout1.send_result(result, 0);
+                    // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
+
+                }else if(msg.what == 1011) {
+
+                    result = (String) msg.obj;
+                    activity.frameLayout1.send_result(result, 1);
+                    // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
+
+                }else if(msg.what == 1012) {
+
+                    result = (String) msg.obj;
+                    activity.frameLayout1.send_result(result, 2);
+                    // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
+
+                }else if(msg.what == 1013) {
+
+                    result = (String) msg.obj;
+                    activity.frameLayout1.send_result(result, 3);
+                    // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
+
                 }else if(msg.what == 102) {
 
                     result = (String) msg.obj;
@@ -197,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                 }else if(msg.what == 105){
 
                         result = (String) msg.obj;
-                        //activity.frameLayout5.send_result(result);
+                        activity.frameLayout5.send_result(result);
                     // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
 
                 }else if(msg.what == 106){
