@@ -68,7 +68,7 @@ public class FoodList extends Fragment {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id){
                 int ID = recipeDataList.get(position).getID();
-                mainActivity.frameLayout7.setData(load_recipe(ID));
+//                mainActivity.frameLayout7.setData(load_recipe(ID));
                 //mainActivity.frameLayout7.setData(load_recipe(ID));
                 mainActivity.fragmentChange(7);
             }
@@ -98,20 +98,22 @@ public class FoodList extends Fragment {
         return rootView;
 
     }
-
-    public recipe_data load_recipe(int ID){
-        // 추가 개발 필요 (스프링 서버 http 요청, ID 값에 해당하는 레시피 추가 데이터 호출 및 데이터화.)
-        // 필요 데이터를 어캐 끌어다 가져오는가에 대해선 위에 tmp 함수 형태처럼 만들면 됨.
-
-        ArrayList<recipeCooking> cooking_list;
-        ArrayList<recipeIngredient> ingredient_list;
-
-        get_recipe_data(1021,ID);
-
-        recipe_data ptr = new recipe_data();
-
-        return ptr;
-    }
+//
+//    public recipe_data load_recipe(int ID){
+//        // 추가 개발 필요 (스프링 서버 http 요청, ID 값에 해당하는 레시피 추가 데이터 호출 및 데이터화.)
+//        // 필요 데이터를 어캐 끌어다 가져오는가에 대해선 위에 tmp 함수 형태처럼 만들면 됨.
+//
+////        ArrayList<recipeCooking> cooking_list;
+////        ArrayList<recipeIngredient> ingredient_list;
+////
+////        get_recipe_data(1021,ID);
+////
+////        recipe_data ptr = new recipe_data();
+////
+////        return ptr;
+//
+//
+//    }
 
     public void InitializeRecipeData()
     {
