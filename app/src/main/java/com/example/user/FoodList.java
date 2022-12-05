@@ -26,11 +26,16 @@ import java.util.List;
 public class FoodList extends Fragment {
 
 
-    ArrayList<recipe_info> recipeDataList;
+    ArrayList<recipe_info> recipeDataList = null;
+    ArrayList<recipeCooking> cooking_list = null;
+    ArrayList<recipeIngredient> ingredient_list = null;
+    recipe_info selected_info = null;
 
     MainActivity mainActivity;
 
     JSONObject jsonObject = null;
+
+    RecipeAdapter recipeAdapter = null;
     // 메인 액티비티 위에 올린다.
     @Override
     public void onAttach(Context context) {
@@ -60,17 +65,19 @@ public class FoodList extends Fragment {
 
         this.get_recipe_data(102,-1);
 
-        final RecipeAdapter recipeAdapter = new RecipeAdapter(getActivity(), recipeDataList);
+        recipeAdapter = new RecipeAdapter(getActivity(), recipeDataList);
 
         listView.setAdapter(recipeAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id){
-                int ID = recipeDataList.get(position).getID();
-//                mainActivity.frameLayout7.setData(load_recipe(ID));
-                //mainActivity.frameLayout7.setData(load_recipe(ID));
-                mainActivity.fragmentChange(7);
+
+                selected_info = recipeDataList.get(position);
+                Log.d("sel_info",Integer.toString(selected_info.getID()));
+                int ID = selected_info.getID();
+                load_recipe(ID);
+
             }
         });
 
@@ -98,22 +105,18 @@ public class FoodList extends Fragment {
         return rootView;
 
     }
-//
-//    public recipe_data load_recipe(int ID){
-//        // 추가 개발 필요 (스프링 서버 http 요청, ID 값에 해당하는 레시피 추가 데이터 호출 및 데이터화.)
-//        // 필요 데이터를 어캐 끌어다 가져오는가에 대해선 위에 tmp 함수 형태처럼 만들면 됨.
-//
-////        ArrayList<recipeCooking> cooking_list;
-////        ArrayList<recipeIngredient> ingredient_list;
-////
-////        get_recipe_data(1021,ID);
-////
-////        recipe_data ptr = new recipe_data();
-////
-////        return ptr;
-//
-//
-//    }
+
+
+    public void load_recipe(int ID){
+        // 추가 개발 필요 (스프링 서버 http 요청, ID 값에 해당하는 레시피 추가 데이터 호출 및 데이터화.)
+        // 필요 데이터를 어캐 끌어다 가져오는가에 대해선 위에 tmp 함수 형태처럼 만들면 됨.
+
+        get_recipe_data(1021,ID);
+
+        get_recipe_data(1022,ID);
+
+    }
+
 
     public void InitializeRecipeData()
     {
@@ -121,7 +124,19 @@ public class FoodList extends Fragment {
     }
 
     public void get_recipe_data(int con, int ID){
-        String Url = "http://172.30.1.52:8080/android/recipeList";
+        String Url = "http://172.30.1.52:8080/android";
+        switch (con){
+            case 102:
+                Url = Url + "/recipeList";
+                break;
+            case 1021:
+                Url = Url + "/recipeIngredient";
+                break;
+            case 1022:
+                Url = Url + "/recipeCooking";
+                break;
+        }
+
         String JSON = "";
         mainActivity.sendHttpApi(JSON,Url,con,ID);
     }
@@ -147,6 +162,7 @@ public class FoodList extends Fragment {
             Log.d("json_error", "String to json Object fail");
             e.printStackTrace();
         }
+        this.recipeAdapter.notifyDataSetChanged();
     }
 
     public ArrayList<recipeIngredient> set_recipeIngredient_list(JSONObject input){
@@ -207,23 +223,28 @@ public class FoodList extends Fragment {
 
         JSONObject jsonObject = null;
 
+
         try {
+            Log.d("result_json",result);
             jsonObject = new JSONObject(result);
         } catch (JSONException e) {
-            Log.d("json_error","String to json Object fail");
+            Log.d("json_error","String to json Object fail1");
             e.printStackTrace();
         }
 
-        switch (con){
-            case 0:
-                set_recipe_info_list(jsonObject);
-                break;
-            case 1:
-                ArrayList<recipeIngredient> ingredient_list = set_recipeIngredient_list(jsonObject);
-                break;
-            case 2:
-                ArrayList<recipeCooking> cooking_list = set_recipeCooking_list(jsonObject);
-                break;
+        if(con == 0){
+            set_recipe_info_list(jsonObject);
+        }else if (con == 1){
+            this.ingredient_list = set_recipeIngredient_list(jsonObject);
+        }else if (con == 2){
+            this.cooking_list = set_recipeCooking_list(jsonObject);
+        }
+
+        if(ingredient_list != null && cooking_list !=null){
+            recipe_data ptr = new recipe_data(cooking_list,ingredient_list,selected_info);
+
+            mainActivity.frameLayout7.setData(ptr);
+            mainActivity.fragmentChange(7);
         }
 
     } // http_protocol 부분을 Httpjson 으로 변경 (Asynctask 관련 문제로 인한 미지원)
