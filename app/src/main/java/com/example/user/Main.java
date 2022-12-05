@@ -100,6 +100,18 @@ public class Main extends Fragment {
 
         });
 
+
+        Button button6 = rootView.findViewById(R.id.src);
+
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
         return rootView;
     }
 

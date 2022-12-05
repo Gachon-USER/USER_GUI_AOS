@@ -72,10 +72,12 @@ public class FoodList extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id){
+
                 selected_info = recipeDataList.get(position);
                 Log.d("sel_info",Integer.toString(selected_info.getID()));
                 int ID = selected_info.getID();
                 load_recipe(ID);
+
             }
         });
 
@@ -104,6 +106,7 @@ public class FoodList extends Fragment {
 
     }
 
+
     public void load_recipe(int ID){
         // 추가 개발 필요 (스프링 서버 http 요청, ID 값에 해당하는 레시피 추가 데이터 호출 및 데이터화.)
         // 필요 데이터를 어캐 끌어다 가져오는가에 대해선 위에 tmp 함수 형태처럼 만들면 됨.
@@ -113,6 +116,7 @@ public class FoodList extends Fragment {
         get_recipe_data(1022,ID);
 
     }
+
 
     public void InitializeRecipeData()
     {
