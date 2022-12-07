@@ -51,7 +51,8 @@ public class VoiceAlert extends Fragment {
 
     recipe_data data = null;
     String recipeNowString;
-    String user_chat;
+
+    TextToSpeech current_tts;
 
     int current_index = 0;
     int maxIndex = 0;
@@ -132,17 +133,15 @@ public class VoiceAlert extends Fragment {
         //인식 결과가 준비되면 호출
         @Override
         public void onResults(Bundle bundle) {
-            ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);	//인식 결과를 담은 ArrayList
-            user_chat = "";
 
+            ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);	//인식 결과를 담은 ArrayList
             //인식 결과
             String newText="";
             for (int i = 0; i < matches.size() ; i++) {
-                user_chat += matches.get(i);
+                newText += matches.get(i);
             }
             // Chat_API 주소지 박아줄것.
-            request_Chat(user_chat,"http://592c-34-143-197-40.ngrok.io/chat_request");
-
+            request_Chat(newText,"http://d87b-35-240-238-233.ngrok.io/chat_request");
         }
 
         @Override
@@ -176,6 +175,9 @@ public class VoiceAlert extends Fragment {
 
         CheckPermission();
 
+        intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,mainActivity.getApplicationContext().getPackageName());
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"ko-KR");   //한국어
 
         bar = rootView.findViewById(R.id.progressBar);
         recipeText = rootView.findViewById(R.id.tmpTextView);
@@ -183,7 +185,7 @@ public class VoiceAlert extends Fragment {
 
         recipeText.setText(recipeNowString);
         pageText.setText(Integer.toString(current_index));
-        speak("" + recipeNowString);
+        current_tts = speak("" + recipeNowString);
 
         barCurrentValue = bar.getProgress();
         barMaxValue = bar.getMax();
@@ -236,11 +238,6 @@ public class VoiceAlert extends Fragment {
                 }
             }
         });
-
-        intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,mainActivity.getApplicationContext().getPackageName());
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"ko-KR");   //한국어
-
 
         return rootView;
     }
@@ -334,18 +331,19 @@ public class VoiceAlert extends Fragment {
         if (control == 0) {
             //this.setTimer();
             Toast.makeText(mainActivity.getApplicationContext(), "타이머 설정", Toast.LENGTH_SHORT).show();
-            speak("타이머를 설정합니다.");
+            current_tts = speak("타이머를 설정합니다.");
         } else if(control == 2){
             this.control(true);
-            speak("" + recipeNowString);
+            current_tts = speak("" + recipeNowString);
         } else if(control == 1){
             this.control(false);
-            speak(" "+ recipeNowString);
+            current_tts = speak(" "+ recipeNowString);
         } else if(control == 3){
             //this.repeat();
             Toast.makeText(mainActivity.getApplicationContext(), "다시듣기 실행", Toast.LENGTH_SHORT).show();
-            speak("다시듣기 " + recipeNowString);
+            current_tts = speak("다시듣기 " + recipeNowString);
         }
+
     }
 
     public void send_result (String result){
@@ -359,7 +357,7 @@ public class VoiceAlert extends Fragment {
         recipeNowString = this.data.getRecipeData(current_index);
     }
 
-    public void speak(String text){
+    public TextToSpeech speak(String text){
         tts = new TextToSpeech(mainActivity.getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -375,5 +373,8 @@ public class VoiceAlert extends Fragment {
                 }
             }
         });
+
+        return tts;
+
     }
 }

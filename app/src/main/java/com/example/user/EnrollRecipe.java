@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +28,7 @@ public class EnrollRecipe extends Fragment {
     private static final int REQUEST_CODE = 0;
 
     MainActivity mainActivity;
+
     // 메인 액티비티 위에 올린다.
     @Override
     public void onAttach(Context context) {
@@ -63,7 +62,7 @@ public class EnrollRecipe extends Fragment {
 
         imageView = rootView.findViewById(R.id.poster);
 
-       Button button2 = rootView.findViewById(R.id.selectim);
+        Button button2 = rootView.findViewById(R.id.selectim);
 
         button2.setOnClickListener(new View.OnClickListener() { //갤러리에 요청코드 보내기
             @Override
@@ -77,55 +76,55 @@ public class EnrollRecipe extends Fragment {
 
         return rootView;
     }
-    
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
-                try {
-                    Uri uri = data.getData();
-                    //Glide.with(getActivity()).load(uri).into(imageView); //다이얼로그 이미지사진에 넣기
+            try {
+                Uri uri = data.getData();
+                //Glide.with(getActivity()).load(uri).into(imageView); //다이얼로그 이미지사진에 넣기
 
-                } catch (Exception e) {
+            } catch (Exception e) {
 
 
             }
         }
     }
 
-    public void upload_recipe(String Name, String Url, String[] recipe_cook, String[] recipe_ingredient, String[] ingredient_cp){
+    public void upload_recipe(String Name, String Url, String[] recipe_cook, String[] recipe_ingredient, String[] ingredient_cp) {
 
         JSONObject send_json = new JSONObject();
 
         try {
 
-            send_json.put("recipeName",Name);
-            send_json.put("recipeUrl",Url);
+            send_json.put("recipeName", Name);
+            send_json.put("recipeUrl", Url);
 
             JSONArray cook = new JSONArray();
 
-            for(int i=0;i<recipe_cook.length;i++){
+            for (int i = 0; i < recipe_cook.length; i++) {
                 JSONObject tmp_cook = new JSONObject();
-                tmp_cook.put("recipe_String",recipe_cook[i]);
-                tmp_cook.put("recipe_no",i);
+                tmp_cook.put("recipe_String", recipe_cook[i]);
+                tmp_cook.put("recipe_no", i);
 
                 cook.put(tmp_cook);
             }
 
-            send_json.put("recipe",cook);
+            send_json.put("recipe", cook);
 
             JSONArray ingredient = new JSONArray();
 
-            for(int i=0;i<recipe_ingredient.length;i++){
+            for (int i = 0; i < recipe_ingredient.length; i++) {
                 JSONObject tmp_ingredient = new JSONObject();
-                tmp_ingredient.put("ingredient_Name",recipe_ingredient[i]);
-                tmp_ingredient.put("ingredient_Cp",ingredient_cp[i]);
-                tmp_ingredient.put("ingredient_no",i);
+                tmp_ingredient.put("ingredient_Name", recipe_ingredient[i]);
+                tmp_ingredient.put("ingredient_Cp", ingredient_cp[i]);
+                tmp_ingredient.put("ingredient_no", i);
 
                 ingredient.put(ingredient);
             }
 
-            send_json.put("ingredient",ingredient);
+            send_json.put("ingredient", ingredient);
 
         } catch (JSONException e) {
             Log.d("json_error", "String to json Object fail");
@@ -133,10 +132,11 @@ public class EnrollRecipe extends Fragment {
         }
 
         String server_Url = "http://172.30.1.52:8080/android/recipeadd";
-        mainActivity.sendHttpApi(send_json.toString(),server_Url,105,-1);
+        mainActivity.sendHttpApi(send_json.toString(), server_Url, 105, -1);
 
     }
 
-    public void send_result(String result){
-        Log.d("result",result);
+    public void send_result(String result) {
+        Log.d("result", result);
     }
+}

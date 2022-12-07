@@ -43,11 +43,11 @@ public class RecipeAdapter extends BaseAdapter {
 
         ImageView imageView = (ImageView)view.findViewById(R.id.poster);
         TextView recipeName = (TextView)view.findViewById(R.id.movieName);
-        //TextView grade = (TextView)view.findViewById(R.id.grade);
+        TextView grade = (TextView)view.findViewById(R.id.grade);
 
-        //imageView.setImageResource(sample.get(position).getPoster());
+        imageView.setImageResource(R.drawable.img);
         recipeName.setText(sample.get(position).getName());
-        //grade.setText(sample.get(position));
+        grade.setText(sample.get(position).getTag());
 
         return view;
     }

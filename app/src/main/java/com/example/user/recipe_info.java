@@ -5,11 +5,13 @@ public class recipe_info {
     int ID;
     String Name;
     String Url;
+    String tag;
 
-    public recipe_info(int ID,String Name, String Url){
+    public recipe_info(int ID,String Url,String Name,String tag){
         this.ID = ID;
         this.Name = Name;
         this.Url = Url;
+        this.tag = tag;
     }
 
     public int getID() {
@@ -34,5 +36,13 @@ public class recipe_info {
 
     public void setUrl(String url) {
         Url = url;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

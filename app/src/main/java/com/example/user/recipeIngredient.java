@@ -4,13 +4,11 @@ public class recipeIngredient {
 
     int idx_ing;
     String ingredient_Name;
-    String getIngredient_Cp;
     int total_list_ID;
 
-    public recipeIngredient(int idx_ing, String ingredient_Name, String getIngredient_Cp, int total_list_ID) {
+    public recipeIngredient(int idx_ing, String ingredient_Name, int total_list_ID) {
         this.idx_ing = idx_ing;
         this.ingredient_Name = ingredient_Name;
-        this.getIngredient_Cp = getIngredient_Cp;
         this.total_list_ID = total_list_ID;
     }
 
@@ -30,13 +28,6 @@ public class recipeIngredient {
         this.ingredient_Name = ingredient_Name;
     }
 
-    public String getGetIngredient_Cp() {
-        return getIngredient_Cp;
-    }
-
-    public void setGetIngredient_Cp(String getIngredient_Cp) {
-        this.getIngredient_Cp = getIngredient_Cp;
-    }
 
     public int getTotal_list_ID() {
         return total_list_ID;

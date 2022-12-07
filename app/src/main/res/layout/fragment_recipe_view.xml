@@ -94,12 +94,12 @@
             >
 
             <ImageView
-                android:gravity="center"
                 android:id="@+id/showim"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/img"
-                android:scaleType="fitXY"/>
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/img" />
 
 
         </LinearLayout>

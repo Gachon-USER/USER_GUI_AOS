@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -19,8 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class FoodList extends Fragment {
@@ -59,7 +56,7 @@ public class FoodList extends Fragment {
 
         Button button = rootView.findViewById(R.id.tob);
 
-        ListView listView = rootView.findViewById(R.id.listView1);
+        ListView listView = rootView.findViewById(R.id.recommend_content);
 
         this.InitializeRecipeData();
 
@@ -152,8 +149,9 @@ public class FoodList extends Fragment {
                 int tmp_ID = tmp.getInt("ID");
                 String tmp_image_url = tmp.getString("imgsrc");
                 String tmp_Name = tmp.getString("Name");
+                String tmp_tag = tmp.getString("recipe_tag");
 
-                recipe_info tmp_info = new recipe_info(tmp_ID,tmp_image_url,tmp_Name);
+                recipe_info tmp_info = new recipe_info(tmp_ID,tmp_image_url,tmp_Name,tmp_tag);
 
                 recipeDataList.add(tmp_info);
             }
@@ -177,9 +175,8 @@ public class FoodList extends Fragment {
 
                 int tmp_idx = tmp.getInt("idx_ing");
                 String tmp_Name = tmp.getString("ingredient_name");
-                String tmp_CP = tmp.getString("ingredient_Cp");
 
-                recipeIngredient tmp_ingredient = new recipeIngredient(tmp_idx,tmp_Name,tmp_CP,-1);
+                recipeIngredient tmp_ingredient = new recipeIngredient(tmp_idx,tmp_Name,-1);
 
                 ingredient_list.add(tmp_ingredient);
             }
