@@ -226,14 +226,18 @@ public class VoiceAlert extends Fragment {
 
         buttonStart = rootView.findViewById(R.id.st);
 
+
+
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!recording) {   //녹음 시작
                     StartRecord();
                     Toast.makeText(mainActivity.getApplicationContext(), "지금부터 음성으로 기록합니다.", Toast.LENGTH_SHORT).show();
+                    buttonStart.setText("음성인식중");
                 }
                 else {  //이미 녹음 중이면 녹음 중지
+                    buttonStart.setText("음성인식");
                     StopRecord();
                 }
             }
