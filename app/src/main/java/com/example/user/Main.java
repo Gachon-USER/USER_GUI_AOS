@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -62,20 +63,39 @@ public class Main extends Fragment {
 
         Last_tag.setText(selected_info.getTag());
 
-        Button button = rootView.findViewById(R.id.toList);
+        ImageButton button2 = rootView.findViewById(R.id.toL);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mainActivity.fragmentChange(2);
-                //mainActivity.fragmentChange(7);
             }
 
         });
 
-        Button button2 = rootView.findViewById(R.id.toUd);
+        ImageButton button3 = rootView.findViewById(R.id.toM);
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(4);
+            }
+
+        });
+
+        ImageButton button4 = rootView.findViewById(R.id.toH);
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(1);
+            }
+
+        });
+
+        ImageButton button15 = rootView.findViewById(R.id.toT);
+
+        button15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mainActivity.fragmentChange(3);
@@ -83,25 +103,18 @@ public class Main extends Fragment {
 
         });
 
-        Button button3 = rootView.findViewById(R.id.toErl);
 
-        button3.setOnClickListener(new View.OnClickListener() {
+        ImageButton button16 = rootView.findViewById(R.id.toE);
+
+        button16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mainActivity.fragmentChange(5);
+
             }
 
         });
 
-        Button button4 = rootView.findViewById(R.id.toMyPg);
-
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.fragmentChange(4);
-            }
-
-        });
 
         Button button5 = rootView.findViewById(R.id.vsrc);
 

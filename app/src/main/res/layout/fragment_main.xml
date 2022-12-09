@@ -46,6 +46,7 @@
 
 
             <EditText
+                android:paddingLeft="8dp"
                 android:id="@+id/sample_EditText"
                 android:layout_weight="30"
                 android:layout_width="wrap_content"
@@ -87,6 +88,9 @@
             >
 
             <TextView
+                android:fontFamily="@font/font5"
+
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="음식 카테고리"
@@ -217,6 +221,8 @@
             android:orientation="vertical"
             >
             <TextView
+                android:fontFamily="@font/font5"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="추천 레시피"
@@ -288,10 +294,12 @@
                     android:layout_height="wrap_content"
                     >
                     <TextView
+                        android:fontFamily="@font/font5"
+                        android:layout_marginLeft="8dp"
                         android:id="@+id/Last"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="최근 요리한 음식"
+                        android:text="최근 음식"
                         android:textSize="20dp"/>
 
                 </LinearLayout>
@@ -362,90 +370,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/toList"
+        <ImageButton
+            android:id="@+id/toL"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/list"
-            android:background="@drawable/btn2"
+            android:src="@drawable/list"
             android:enabled="true"
             android:onClick="onClick"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:fontFamily="@font/font3"
-            android:textSize="15dp"
-            android:text="음식 리스트"
-            android:textColor="#03A9F4"
-            android:layout_weight="1"/>
+            android:background="@drawable/btn2"
+            android:layout_weight="1"
+            android:padding="5dp"
+            />
 
 
-        <Button
-            android:id="@+id/toMyPg"
+
+        <ImageButton
+            android:id="@+id/toM"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/user"
+            android:src="@drawable/user"
             android:background="@drawable/btn2"
             android:enabled="true"
-            android:onClick="onClick"
-            android:fontFamily="@font/font3"
-            android:textSize="15dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="마이페이지"
-            android:textColor="#03A9F4"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:padding="5dp"/>
 
-
-        <Button
+        <ImageButton
             android:id="@+id/toH"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:src="@drawable/home"
+            android:background="@drawable/btn2"
+            android:enabled="true"
             android:layout_weight="1"
-            android:background="@drawable/btn2"
-            android:drawableTop="@drawable/home"
-            android:enabled="true"
-            android:fontFamily="@font/font3"
-            android:onClick="onClick"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="홈"
-            android:textColor="#03A9F4"
-            android:textSize="15dp" />
+            android:padding="5dp"/>
 
-        <Button
-            android:id="@+id/toUd"
+
+        <ImageButton
+            android:id="@+id/toT"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/prefer"
+            android:src="@drawable/prefer"
             android:background="@drawable/btn2"
             android:enabled="true"
-            android:onClick="onClick"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="선호도 수정"
-            android:fontFamily="@font/font3"
-            android:textSize="15dp"
-            android:textColor="#03A9F4"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:padding="5dp"/>
 
 
-        <Button
-            android:id="@+id/toErl"
+
+
+
+        <ImageButton
+            android:id="@+id/toE"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/erl"
-            android:background="@drawable/btn2"
+            android:src="@drawable/erl"
+            android:background="@color/white"
             android:enabled="true"
-            android:onClick="onClick"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="레시피 등록"
-            android:fontFamily="@font/font3"
-            android:textSize="15dp"
-            android:textColor="#03A9F4"
-            android:layout_weight="1"/>
-
+            android:layout_weight="1"
+            android:padding="5dp"/>
 
 
 
