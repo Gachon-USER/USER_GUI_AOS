@@ -46,9 +46,9 @@
 
 
             <EditText
-                android:paddingLeft="8dp"
+                android:paddingLeft="10dp"
                 android:id="@+id/sample_EditText"
-                android:layout_weight="30"
+                android:ems="15"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/serachbar"
@@ -270,7 +270,7 @@
             >
 
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray"/>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#BBB0DC"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -312,6 +312,10 @@
                     android:orientation="horizontal">
 
                     <ListView
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:id="@+id/recommend_user"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
@@ -328,6 +332,10 @@
 
 
                     <ListView
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:id="@+id/recommend_content"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
@@ -337,7 +345,7 @@
 
 
             </LinearLayout>
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray"/>
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#BBB0DC"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -422,7 +430,7 @@
     </LinearLayout>
 
 
-    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#BBB0DC"/>
 
     <LinearLayout
         android:layout_width="match_parent"

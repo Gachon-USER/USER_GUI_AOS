@@ -250,7 +250,7 @@ public class VoiceAlert extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(7);
+                mainActivity.fragmentChange(1);
             }
 
         });
