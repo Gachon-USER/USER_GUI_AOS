@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="5dp"
-        android:background="@drawable/inputbox">
+       >
 
         <ImageView
             android:id="@+id/poster"
@@ -30,18 +30,24 @@
             android:orientation="vertical">
 
             <TextView
-                android:marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:id="@+id/movieName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:fontFamily="@font/font5"
+                android:textSize="20dp"
+                android:textColor="#000000"/>
 
             <TextView
                 android:id="@+id/grade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="TextView" />
+                android:layout_marginTop="30dp"
+                android:text="TextView"
+                android:fontFamily="@font/font5"
+                android:textSize="15dp"
+                />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
