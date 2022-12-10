@@ -138,6 +138,177 @@ public class Main extends Fragment {
 
         });
 
+
+
+        ImageButton button40 = rootView.findViewById(R.id.kor);
+
+        button40.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+
+
+        ImageButton button41 = rootView.findViewById(R.id.jap);
+
+        button41.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+        ImageButton button43 = rootView.findViewById(R.id.chi);
+
+        button43.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+
+
+        ImageButton button44 = rootView.findViewById(R.id.wes);
+
+        button44.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+
+
+        ImageButton button45 = rootView.findViewById(R.id.ckn);
+
+        button45.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+
+
+        ImageButton button46 = rootView.findViewById(R.id.cow);
+
+        button46.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+        ImageButton button47 = rootView.findViewById(R.id.pig);
+
+        button47.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+
+
+        ImageButton button48 = rootView.findViewById(R.id.she);
+
+        button48.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+
+
+
+        ImageButton button49 = rootView.findViewById(R.id.spi);
+
+        button49.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+
+
+        ImageButton button50 = rootView.findViewById(R.id.sal);
+
+        button50.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+        ImageButton button51 = rootView.findViewById(R.id.swe);
+
+        button51.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+
+
+        ImageButton button52 = rootView.findViewById(R.id.sou);
+
+        button52.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+
+            }
+
+        });
+
+
+
+
+
+
+
+
+
+
         ListView listView = rootView.findViewById(R.id.recommend_content);
 
         this.InitializeRecipeData();
