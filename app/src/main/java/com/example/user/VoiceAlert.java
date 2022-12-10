@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -189,6 +190,60 @@ public class VoiceAlert extends Fragment {
 
         barCurrentValue = bar.getProgress();
         barMaxValue = bar.getMax();
+
+        ImageButton button6 = rootView.findViewById(R.id.toL);
+
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(2);
+            }
+
+        });
+
+        ImageButton button7 = rootView.findViewById(R.id.toM);
+
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(4);
+            }
+
+        });
+
+        ImageButton button8 = rootView.findViewById(R.id.toH);
+
+        button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(1);
+            }
+
+        });
+
+        ImageButton button9 = rootView.findViewById(R.id.toT);
+
+        button9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(3);
+            }
+
+        });
+
+
+        ImageButton button10 = rootView.findViewById(R.id.toE);
+
+        button10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(5);
+
+            }
+
+        });
+
+
 
         Button button = rootView.findViewById(R.id.bcbc);
 

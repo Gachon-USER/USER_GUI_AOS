@@ -91,7 +91,7 @@
             android:onClick="onClick"
             android:textSize="20dp"
             android:fontFamily="@font/font5"
-            android:textColor="#3F51B5"/>
+            android:textColor="#567ACE"/>
 
 
 
@@ -186,7 +186,7 @@
 
 
         <ImageButton
-            android:id="@+id/toList"
+            android:id="@+id/toL"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/list"
