@@ -42,7 +42,7 @@
                 android:layout_gravity="center"
                 android:text="음식: "
                 android:textSize="25dp"
-                android:fontFamily="@font/font"
+                android:fontFamily="@font/font5"
                 android:textColor="#000002"/>
         </LinearLayout>
 
@@ -179,7 +179,7 @@
                     android:fontFamily="@font/font5"
                     android:text="재료는 여기에 들어갑니다"
                     android:textColor="#000000"
-                    android:textSize="20dp" />
+                    android:textSize="18dp" />
 
 
             </LinearLayout>
@@ -217,14 +217,14 @@
             android:textSize="23dp" />
 
         <TextView
-            android:layout_margin="10dp"
+            android:layout_margin="14dp"
             android:id="@+id/showCk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font5"
             android:text="여기에 조리법이 들어갑니다"
             android:textColor="#000000"
-            android:textSize="20dp" />
+            android:textSize="18dp" />
 
 
     </LinearLayout>
@@ -242,22 +242,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font3"
-                android:text="조리법"
+                android:text="댓글"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
                 android:textColor="#000000"
                 android:textSize="23dp" />
 
-            <TextView
-                android:layout_margin="10dp"
-                android:id="@+id/sho"
+
+
+            <ListView
+                android:id="@+id/recommend_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/font5"
-                android:text="여기에 조리법이 들어갑니다"
-                android:textColor="#000000"
-                android:textSize="20dp" />
+                android:layout_height="match_parent"/>
+
+
+
+
 
 
         </LinearLayout>
