@@ -181,9 +181,11 @@ public class EnrollRecipe extends Fragment {
                 String name = recipe_name.getText().toString();
                 String Url =" www/";//임시데이터(사진주소)
 
+                //재료 입력할때 마늘/6개,소스/100g,면/2가닥 이런식으로 입력해야함
                 String ingredient = recipe_Ingredients.getText().toString();
                 String[] ing_tmp = ingredient.split(",");
 
+                //조리과정 입력할때 1/1번과정,2/2번과정,3/3번과정 이런식으로 입력해야함
                 String cooking = recipe_Cooking.getText().toString();
                 String[] cook_tmp = cooking.split(",");
                 Log.d("haha", Arrays.toString(cook_tmp));
