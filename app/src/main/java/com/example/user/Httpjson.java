@@ -18,20 +18,27 @@ import java.util.List;
 
 public class Httpjson extends AsyncTask<String, Void, JSONObject> {
 
+    public String URL_String;
     public JSONObject json = null;
+
+    public Httpjson(String U)
+    {
+        URL_String = U;
+    }
     @Override
     protected JSONObject doInBackground(String... strings) {
 
 
         Log.d("onclicked", "onClick!: ");
-        String param, receiveMsg;
+        String param,param1, receiveMsg;
         String str;
 
         try {
-            URL url = new URL("http://10.0.2.2:8080/android");
+            URL url = new URL(URL_String);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            param = "id=" + 0 + "&pw=" + 0;
+            param1 =
+            param = "id=" + 0;
             StringBuilder stringBuilder = new StringBuilder();
             if (conn != null) {
                 System.out.println("서버에 연결되었습니다");
@@ -48,7 +55,6 @@ public class Httpjson extends AsyncTask<String, Void, JSONObject> {
                         if (line == null) break;
                         stringBuilder.append(line + "\n");
                     }
-//                    Log.d("hahah", stringBuilder.toString());
                     bufferedReader.close();
                 }
                 conn.disconnect();

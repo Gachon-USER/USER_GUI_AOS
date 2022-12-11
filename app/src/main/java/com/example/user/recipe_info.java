@@ -14,6 +14,11 @@ public class recipe_info {
         this.tag = tag;
     }
 
+    public recipe_info(String Name, String Url){
+        this.Name = Name;
+        this.Url = Url;
+    }
+
     public int getID() {
         return ID;
     }

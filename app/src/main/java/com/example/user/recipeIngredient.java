@@ -4,12 +4,24 @@ public class recipeIngredient {
 
     int idx_ing;
     String ingredient_Name;
-    int total_list_ID;
+    String getIngredient_Cp;
+    recipe_info recipeInfo;
 
-    public recipeIngredient(int idx_ing, String ingredient_Name, int total_list_ID) {
+    public recipeIngredient(int idx_ing, String ingredient_Name, String getIngredient_Cp, recipe_info recipeInfo) {
         this.idx_ing = idx_ing;
         this.ingredient_Name = ingredient_Name;
-        this.total_list_ID = total_list_ID;
+        this.getIngredient_Cp = getIngredient_Cp;
+        this.recipeInfo = recipeInfo;
+    }
+    public recipeIngredient(int idx_ing, String ingredient_Name, String getIngredient_Cp) {
+        this.idx_ing = idx_ing;
+        this.ingredient_Name = ingredient_Name;
+        this.getIngredient_Cp = getIngredient_Cp;
+    }
+
+    public recipeIngredient(String ingredient_Name, String getIngredient_Cp) {
+        this.ingredient_Name = ingredient_Name;
+        this.getIngredient_Cp = getIngredient_Cp;
     }
 
     public int getIdx_ing() {
@@ -28,12 +40,19 @@ public class recipeIngredient {
         this.ingredient_Name = ingredient_Name;
     }
 
-
-    public int getTotal_list_ID() {
-        return total_list_ID;
+    public String getGetIngredient_Cp() {
+        return getIngredient_Cp;
     }
 
-    public void setTotal_list_ID(int total_list_ID) {
-        this.total_list_ID = total_list_ID;
+    public void setGetIngredient_Cp(String getIngredient_Cp) {
+        this.getIngredient_Cp = getIngredient_Cp;
+    }
+
+    public recipe_info getTotal_list_ID() {
+        return recipeInfo;
+    }
+
+    public void setRecipeInfo(recipe_info recipeInfo) {
+        this.recipeInfo = recipeInfo;
     }
 }
