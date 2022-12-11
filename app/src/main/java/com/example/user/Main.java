@@ -29,13 +29,15 @@ public class Main extends Fragment {
     ArrayList<recipe_info> contentRecipeList;
     ArrayList<recipe_info> userRecipeList;
 
-    recipe_info selected_info = new recipe_info(0,"라면","","라면,짠맛");
+    recipe_info selected_info = new recipe_info(0,"","라면","라면,짠맛");
 
     ArrayList<recipeIngredient> ingredient_list;
     ArrayList<recipeCooking> cooking_list;
 
     RecipeAdapter contentRecipeAdapter;
     RecipeAdapter userRecipeAdapter ;
+
+    int user_id = 4;
 
     // 메인 액티비티 위에 올린다.
    @Override
@@ -300,30 +302,36 @@ public class Main extends Fragment {
 
         });
 
-
-
-
-
-
-
-
-
-
-        ListView listView = rootView.findViewById(R.id.recommend_content);
+        ListView contentlistView = rootView.findViewById(R.id.recommend_content);
+        ListView userlistView = rootView.findViewById(R.id.recommend_user);
 
         this.InitializeRecipeData();
 
-        this.get_recommend(selected_info.getID(),0,2);
+        this.get_recommend(selected_info.getID(),user_id,0,2);
 
         contentRecipeAdapter = new RecipeAdapter(getActivity(), contentRecipeList);
+        userRecipeAdapter = new RecipeAdapter(getActivity(), userRecipeList);
 
-        listView.setAdapter(contentRecipeAdapter);
+        contentlistView.setAdapter(contentRecipeAdapter);
+        userlistView.setAdapter(userRecipeAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        contentlistView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id){
 
                 selected_info = contentRecipeList.get(position);
+                Log.d("sel_info",Integer.toString(selected_info.getID()));
+                int ID = selected_info.getID();
+                load_recipe(ID);
+
+            }
+        });
+
+        userlistView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView parent, View v, int position, long id){
+
+                selected_info = userRecipeList.get(position);
                 Log.d("sel_info",Integer.toString(selected_info.getID()));
                 int ID = selected_info.getID();
                 load_recipe(ID);
@@ -350,10 +358,10 @@ public class Main extends Fragment {
         this.userRecipeList = new ArrayList<recipe_info>();
     }
 
-    public void get_recommend(int ID,int type, int num){
+    public void get_recommend(int recipe_id,int user_id,int type, int num){
 
-        String Url = "http://d87b-35-240-238-233.ngrok.io/recommend";
-        mainActivity.sendHttpApi("{\"last_ID\" : "+ Integer.toString(ID) +",\"type\" : "+ Integer.toString(type) +",\"num\" : "+ Integer.toString(num) +"}",Url,101,ID);
+        String Url = "http://13df-35-237-148-191.ngrok.io/recommend";
+        mainActivity.sendHttpApi("{\"last_ID\" : "+ Integer.toString(recipe_id) +",\"user_ID\" : "+ Integer.toString(user_id) +",\"type\" : "+ Integer.toString(type) +",\"num\" : "+ Integer.toString(num) +"}",Url,101,recipe_id);
 
     }
 
@@ -386,6 +394,7 @@ public class Main extends Fragment {
                         ptr_arr.put(input_tmp);
                     }
                     ptr.put("find",ptr_arr);
+                    JSON = ptr.toString();
                     break;
                 case 1012:
                     Url = Url + "/recipeIngredient";
@@ -429,7 +438,7 @@ public class Main extends Fragment {
             e.printStackTrace();
         }
         this.contentRecipeAdapter.notifyDataSetChanged();
-        //this.userRecipeAdapter.notifyDataSetChanged();
+        this.userRecipeAdapter.notifyDataSetChanged();
 
     }
 
@@ -523,7 +532,7 @@ public class Main extends Fragment {
 
         int[] content_base_list = null;
 
-        //int[] user_base_list = null;
+        int[] user_base_list = null;
 
        try{
            recommand = new JSONObject(result);
@@ -531,14 +540,14 @@ public class Main extends Fragment {
            int num = recommand.getInt("num");
 
            JSONArray content = recommand.getJSONArray("content_base");
-           //JSONArray user = recommand.getJSONArray("user_base");
+           JSONArray user = recommand.getJSONArray("user_base");
 
            content_base_list = new int[num];
-           //user_base_list = new int[num];
+           user_base_list = new int[num];
 
            for(int i=0;i<num;i++){
                content_base_list[i] = content.getInt(i);
-               //user_base_list[i] = user.getInt(i);
+               user_base_list[i] = user.getInt(i);
            }
 
 
@@ -548,7 +557,7 @@ public class Main extends Fragment {
        }
 
        get_recipe_data(1010,-1,content_base_list);
-       //get_recipe_data(1011,-1,user_base_list);
+       get_recipe_data(1011,-1,user_base_list);
 
     }
 

@@ -35,7 +35,10 @@ public class VoiceAlert extends Fragment {
     MainActivity mainActivity;
     private TextToSpeech tts;
 
-    Intent intent;
+    boolean tts_init = false;
+
+    Intent speech_intent;
+    RecognitionListener listener;
     SpeechRecognizer speechRecognizer;
     final int PERMISSION = 1;
 
@@ -61,101 +64,6 @@ public class VoiceAlert extends Fragment {
     int barCurrentValue = 0;
     int barMaxValue = 0;
 
-    RecognitionListener listener = new RecognitionListener() {
-        @Override
-        public void onReadyForSpeech(Bundle bundle) {
-
-        }
-
-        @Override
-        public void onBeginningOfSpeech() {
-            //사용자가 말하기 시작
-        }
-
-        @Override
-        public void onRmsChanged(float v) {
-
-        }
-
-        @Override
-        public void onBufferReceived(byte[] bytes) {
-
-        }
-
-        @Override
-        public void onEndOfSpeech() {
-            //사용자가 말을 멈추면 호출
-            //인식 결과에 따라 onError나 onResults가 호출됨
-        }
-
-        @Override
-        public void onError(int error) {    //토스트 메세지로 에러 출력
-            String message;
-            switch (error) {
-                case SpeechRecognizer.ERROR_AUDIO:
-                    message = "오디오 에러";
-                    break;
-                case SpeechRecognizer.ERROR_CLIENT:
-                    //message = "클라이언트 에러";
-                    //speechRecognizer.stopListening()을 호출하면 발생하는 에러
-                    return; //토스트 메세지 출력 X
-                case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-                    message = "퍼미션 없음";
-                    break;
-                case SpeechRecognizer.ERROR_NETWORK:
-                    message = "네트워크 에러";
-                    break;
-                case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-                    message = "네트웍 타임아웃";
-                    break;
-                case SpeechRecognizer.ERROR_NO_MATCH:
-                    //message = "찾을 수 없음";
-                    //녹음을 오래하거나 speechRecognizer.stopListening()을 호출하면 발생하는 에러
-                    //speechRecognizer를 다시 생성하여 녹음 재개
-                    if (recording)
-                        StartRecord();
-                    return; //토스트 메세지 출력 X
-                case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-                    message = "RECOGNIZER가 바쁨";
-                    break;
-                case SpeechRecognizer.ERROR_SERVER:
-                    message = "서버가 이상함";
-                    break;
-                case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-                    message = "말하는 시간초과";
-                    break;
-                default:
-                    message = "알 수 없는 오류임";
-                    break;
-            }
-            Toast.makeText(mainActivity.getApplicationContext(), "에러가 발생하였습니다. : " + message, Toast.LENGTH_SHORT).show();
-        }
-
-        //인식 결과가 준비되면 호출
-        @Override
-        public void onResults(Bundle bundle) {
-
-            ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);	//인식 결과를 담은 ArrayList
-            //인식 결과
-            String newText="";
-            for (int i = 0; i < matches.size() ; i++) {
-                newText += matches.get(i);
-            }
-            // Chat_API 주소지 박아줄것.
-            request_Chat(newText,"http://d87b-35-240-238-233.ngrok.io/chat_request");
-        }
-
-        @Override
-        public void onPartialResults(Bundle bundle) {
-
-        }
-
-        @Override
-        public void onEvent(int i, Bundle bundle) {
-
-        }
-    };
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -174,11 +82,108 @@ public class VoiceAlert extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_voice_alert, container, false);
 
-        CheckPermission();
+        CheckPermission();//한국어
 
-        intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,mainActivity.getApplicationContext().getPackageName());
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"ko-KR");   //한국어
+        this.listener = new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+                //사용자가 말하기 시작
+            }
+
+            @Override
+            public void onRmsChanged(float v) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+                //사용자가 말을 멈추면 호출
+                //인식 결과에 따라 onError나 onResults가 호출됨
+            }
+
+            @Override
+            public void onError(int error) {    //토스트 메세지로 에러 출력
+                String message;
+                switch (error) {
+                    case SpeechRecognizer.ERROR_AUDIO:
+                        message = "오디오 에러";
+                        break;
+                    case SpeechRecognizer.ERROR_CLIENT:
+                        //message = "클라이언트 에러";
+                        //speechRecognizer.stopListening()을 호출하면 발생하는 에러
+                        return; //토스트 메세지 출력 X
+                    case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
+                        message = "퍼미션 없음";
+                        break;
+                    case SpeechRecognizer.ERROR_NETWORK:
+                        message = "네트워크 에러";
+                        break;
+                    case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+                        message = "네트웍 타임아웃";
+                        break;
+                    case SpeechRecognizer.ERROR_NO_MATCH:
+                        //message = "찾을 수 없음";
+                        //녹음을 오래하거나 speechRecognizer.stopListening()을 호출하면 발생하는 에러
+                        //speechRecognizer를 다시 생성하여 녹음 재개
+                        if (recording)
+                            StartRecord();
+                        return; //토스트 메세지 출력 X
+                    case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
+                        message = "RECOGNIZER가 바쁨";
+                        break;
+                    case SpeechRecognizer.ERROR_SERVER:
+                        message = "서버가 이상함";
+                        break;
+                    case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
+                        message = "말하는 시간초과";
+                        break;
+                    default:
+                        message = "알 수 없는 오류임";
+                        break;
+                }
+                Toast.makeText(mainActivity.getApplicationContext(), "에러가 발생하였습니다. : " + message, Toast.LENGTH_SHORT).show();
+            }
+
+            //인식 결과가 준비되면 호출
+            @Override
+            public void onResults(Bundle bundle) {
+
+                ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);	//인식 결과를 담은 ArrayList
+                //인식 결과
+                String newText="";
+                for (int i = 0; i < matches.size() ; i++) {
+                    newText += matches.get(i);
+                }
+                // Chat_API 주소지 박아줄것.
+                request_Chat(newText,"http://13df-35-237-148-191.ngrok.io/chat_request");
+
+                StopRecord();
+            }
+
+            @Override
+            public void onPartialResults(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onEvent(int i, Bundle bundle) {
+
+            }
+        };
+
+        this.speech_intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        speech_intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,mainActivity.getApplicationContext().getPackageName());
+        speech_intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"ko-KR");
 
         bar = rootView.findViewById(R.id.progressBar);
         recipeText = rootView.findViewById(R.id.tmpTextView);
@@ -186,7 +191,9 @@ public class VoiceAlert extends Fragment {
 
         recipeText.setText(recipeNowString);
         pageText.setText(Integer.toString(current_index));
-        current_tts = speak("" + recipeNowString);
+
+        current_tts = speak_set();
+        while(tts_init){}
 
         barCurrentValue = bar.getProgress();
         barMaxValue = bar.getMax();
@@ -288,7 +295,12 @@ public class VoiceAlert extends Fragment {
             public void onClick(View view) {
                 if (!recording) {   //녹음 시작
                     StartRecord();
-                    Toast.makeText(mainActivity.getApplicationContext(), "지금부터 음성으로 기록합니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mainActivity.getApplicationContext(), "음성 안내를 시작합니다. 음성으로 기록합니다.", Toast.LENGTH_SHORT).show();
+                    current_tts.speak("음성 안내 시작 " + recipeNowString, TextToSpeech.QUEUE_FLUSH, null, null);
+
+                    while(current_tts.isSpeaking()){}
+
+                    StartRecord();
                     buttonStart.setText("음성인식중");
                 }
                 else {  //이미 녹음 중이면 녹음 중지
@@ -310,7 +322,7 @@ public class VoiceAlert extends Fragment {
 
         speechRecognizer=SpeechRecognizer.createSpeechRecognizer(mainActivity.getApplicationContext());
         speechRecognizer.setRecognitionListener(listener);
-        speechRecognizer.startListening(intent);
+        speechRecognizer.startListening(speech_intent);
     }
 
     //녹음 중지
@@ -320,8 +332,8 @@ public class VoiceAlert extends Fragment {
         //이미지 및 텍스트 변경 예정.
         /*recordBtn.setImageResource(R.drawable.start_record);
         recordTextView.setText("음성 녹음 시작");*/
-
-        speechRecognizer.stopListening();   //녹음 중지
+        speechRecognizer.stopListening();
+        speechRecognizer.destroy();   //녹음 중지
         Toast.makeText(mainActivity.getApplicationContext(), "음성 기록을 중지합니다.", Toast.LENGTH_SHORT).show();
     }
 
@@ -356,8 +368,6 @@ public class VoiceAlert extends Fragment {
 
     public void ResetText(){
         recipeNowString = data.getRecipeData(current_index);
-        recipeText.setText(recipeNowString);
-        pageText.setText(Integer.toString(current_index));
     }
 
     public void CheckPermission() {
@@ -387,21 +397,31 @@ public class VoiceAlert extends Fragment {
             2: before
             3: repeat
         */
+        StopRecord();
+
         if (control == 0) {
             //this.setTimer();
             Toast.makeText(mainActivity.getApplicationContext(), "타이머 설정", Toast.LENGTH_SHORT).show();
-            current_tts = speak("타이머를 설정합니다.");
+            current_tts.speak("타이머를 설정합니다.", TextToSpeech.QUEUE_FLUSH, null, null);
         } else if(control == 2){
             this.control(true);
-            current_tts = speak("" + recipeNowString);
+            recipeText.setText(recipeNowString);
+            pageText.setText(Integer.toString(current_index));
+            current_tts.speak(recipeNowString, TextToSpeech.QUEUE_FLUSH, null, null);
         } else if(control == 1){
             this.control(false);
-            current_tts = speak(" "+ recipeNowString);
+            recipeText.setText(recipeNowString);
+            pageText.setText(Integer.toString(current_index));
+            current_tts.speak(recipeNowString, TextToSpeech.QUEUE_FLUSH, null, null);
         } else if(control == 3){
             //this.repeat();
             Toast.makeText(mainActivity.getApplicationContext(), "다시듣기 실행", Toast.LENGTH_SHORT).show();
-            current_tts = speak("다시듣기 " + recipeNowString);
+            current_tts.speak("다시듣기 " + recipeNowString, TextToSpeech.QUEUE_FLUSH, null, null);
         }
+
+        while(current_tts.isSpeaking()){}
+
+        StartRecord();
 
     }
 
@@ -416,16 +436,17 @@ public class VoiceAlert extends Fragment {
         recipeNowString = this.data.getRecipeData(current_index);
     }
 
-    public TextToSpeech speak(String text){
+    public TextToSpeech speak_set(){
         tts = new TextToSpeech(mainActivity.getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
+
+                tts_init = true;
+
                 if (status != ERROR){
                     int result = tts.setLanguage(Locale.KOREA); // 언어 선택
                     if(result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA){
                         Log.e("TTS", "This Language is not supported");
-                    }else{
-                        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
                     }
                 }else{
                     Log.e("TTS", "Initialization Failed!");

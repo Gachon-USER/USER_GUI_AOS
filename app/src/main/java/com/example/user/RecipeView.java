@@ -1,21 +1,17 @@
 package com.example.user;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.widget.ListView;
 
 public class RecipeView extends Fragment {
 
@@ -70,6 +66,16 @@ public class RecipeView extends Fragment {
 
         });
 
+        ListView ingredient_list = rootView.findViewById(R.id.ingredient_list);
+        ListView recipe_list = rootView.findViewById(R.id.recipe_list);
+
+        viewRecipeAdapter recipeAdapter = new viewRecipeAdapter(getActivity(),data.getCooking_list());
+
+        recipe_list.setAdapter(recipeAdapter);
+        viewIngredientAdapter ingredientAdapter = new viewIngredientAdapter(getActivity(),data.getIngredient_list());
+
+        ingredient_list.setAdapter(ingredientAdapter);
+
 
         ImageButton button6 = rootView.findViewById(R.id.toList);
 
@@ -122,8 +128,6 @@ public class RecipeView extends Fragment {
             }
 
         });
-
-
 
         return rootView;
 
