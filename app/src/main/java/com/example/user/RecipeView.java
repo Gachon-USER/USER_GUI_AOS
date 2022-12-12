@@ -11,22 +11,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
+import com.bumptech.glide.Glide;
 
 public class RecipeView extends Fragment {
 
@@ -73,28 +61,9 @@ public class RecipeView extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Httpjson httpjson;
 
-                //이부분에 spring에서 레시피 받아오는 로직추가
-
-                try {
-
-                    String[] tmp_recipe ;
-                    String[] tmp_item = {"1","2","3"};
-                    int tmp_maxRecipe = 5;
-                    int tmp_maxItem = 3;
-                    String URL = "http://10.0.2.2:8080/android/recipeList";
-                    JSONObject jsonhttpjson = new Httpjson(URL).execute("").get();
-                    Log.d("TAG", String.valueOf(jsonhttpjson));
-
-//                    data = jsonhttpjson;
-                    mainActivity.frameLayout6.setData(data);
-                    mainActivity.fragmentChange(6);
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                mainActivity.frameLayout6.setData(data);
+                mainActivity.fragmentChange(6);
 
             }
 
@@ -110,6 +79,12 @@ public class RecipeView extends Fragment {
 
         ingredient_list.setAdapter(ingredientAdapter);
 
+        ImageView imageView = (ImageView)rootView.findViewById(R.id.showim);
+
+        Glide.with(getActivity())
+//                        .load(getRealPathFromURI(selectedImageUri))
+                .load(data.getInfo().getUrl())
+                .into(imageView);
 
         ImageButton button6 = rootView.findViewById(R.id.toList);
 
@@ -174,49 +149,6 @@ public class RecipeView extends Fragment {
     public void send_result (String result){
         this.result = result;
     }
-
-    public int howmanypages(JSONObject jsonObject){//레시피 단계가 몇단계인지
-        int i=0;
-        try {
-            JSONArray arr = (JSONArray)jsonObject.get("recipe");
-            for(i=0;i<arr.length();i++){
-                Log.d("AG", String.valueOf(i));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return i;
-    }
-
-    public String[] getStringvalues(JSONObject jsonObject){//레시피 단계별 설명만 return
-        Log.d("AG", "함수호출됨");
-        List<String> recipeString = new ArrayList<String>();
-        try {
-            JSONArray arr = (JSONArray)jsonObject.get("recipe");
-            List<JSONObject> copyList = new ArrayList<JSONObject>();
-
-            for (int i=0; i<arr.length(); i++){
-                copyList.add((JSONObject) arr.get(i)); // list 에 삽입 실시
-            }
-
-            for (JSONObject item:copyList) {
-                recipeString.add(String.valueOf(item.get("cooking_order")));
-
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        String[] recipespringarray = recipeString.toArray(new String[0]);
-        Log.d("s", Arrays.toString(recipespringarray));
-        return recipespringarray;
-    }
-
-//    public recipeCooking jsontorecipeCooking(JSONObject jsonObject){
-//        Log.d("AG", "함수호출됨");
-//    }
 
 }
 

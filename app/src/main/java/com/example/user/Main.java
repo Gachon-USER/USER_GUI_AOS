@@ -361,7 +361,7 @@ public class Main extends Fragment {
 
     public void get_recommend(int recipe_id,int user_id,int type, int num){
 
-        String Url = "http://13df-35-237-148-191.ngrok.io/recommend";
+        String Url = "http://9059-35-237-67-214.ngrok.io/recommend";
         mainActivity.sendHttpApi("{\"last_ID\" : "+ Integer.toString(recipe_id) +",\"user_ID\" : "+ Integer.toString(user_id) +",\"type\" : "+ Integer.toString(type) +",\"num\" : "+ Integer.toString(num) +"}",Url,101,recipe_id);
 
     }

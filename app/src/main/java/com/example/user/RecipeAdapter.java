@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class RecipeAdapter extends BaseAdapter {
@@ -46,6 +48,12 @@ public class RecipeAdapter extends BaseAdapter {
         TextView grade = (TextView)view.findViewById(R.id.grade);
 
         imageView.setImageResource(R.drawable.img);
+
+        Glide.with(mContext)
+//                        .load(getRealPathFromURI(selectedImageUri))
+                .load(sample.get(position).getUrl())
+                .into(imageView);
+
         recipeName.setText(sample.get(position).getName());
         grade.setText(sample.get(position).getTag());
 

@@ -5,22 +5,13 @@ public class recipeCooking {
     int idx;
     String cooking_order;
     int cooking_order_no;
-    recipe_info recipeInfo;
+    int total_list_ID;
 
-    public recipeCooking(int idx, String cooking_order, int cooking_order_no, recipe_info recipeInfo) {
+    public recipeCooking(int idx, String cooking_order, int cooking_order_no, int total_list_ID) {
         this.idx = idx;
         this.cooking_order = cooking_order;
         this.cooking_order_no = cooking_order_no;
-        this.recipeInfo = recipeInfo;
-    }
-    public recipeCooking(int idx, String cooking_order, int cooking_order_no) {
-        this.idx = idx;
-        this.cooking_order = cooking_order;
-        this.cooking_order_no = cooking_order_no;
-    }
-    public recipeCooking(String cooking_order, int cooking_order_no) {
-        this.cooking_order = cooking_order;
-        this.cooking_order_no = cooking_order_no;
+        this.total_list_ID = total_list_ID;
     }
 
     public int getIdx() {
@@ -47,11 +38,11 @@ public class recipeCooking {
         this.cooking_order_no = cooking_order_no;
     }
 
-    public recipe_info getRecipe_info() {
-        return recipeInfo;
+    public int getTotal_list_ID() {
+        return total_list_ID;
     }
 
-    public void setRecipeInfo(recipe_info recipeInfo) {
-        this.recipeInfo = recipeInfo;
+    public void setTotal_list_ID(int total_list_ID) {
+        this.total_list_ID = total_list_ID;
     }
 }

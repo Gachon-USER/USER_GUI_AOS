@@ -165,7 +165,7 @@ public class VoiceAlert extends Fragment {
                     newText += matches.get(i);
                 }
                 // Chat_API 주소지 박아줄것.
-                request_Chat(newText,"http://13df-35-237-148-191.ngrok.io/chat_request");
+                request_Chat(newText,"http://9059-35-237-67-214.ngrok.io/chat_request");
 
                 StopRecord();
             }
@@ -193,7 +193,6 @@ public class VoiceAlert extends Fragment {
         pageText.setText(Integer.toString(current_index));
 
         current_tts = speak_set();
-        while(tts_init){}
 
         barCurrentValue = bar.getProgress();
         barMaxValue = bar.getMax();

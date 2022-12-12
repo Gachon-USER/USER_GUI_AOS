@@ -229,9 +229,8 @@ public class FoodList extends Fragment {
 
                 int tmp_idx = tmp.getInt("idx_ing");
                 String tmp_Name = tmp.getString("ingredient_name");
-                String tmp_Cp = tmp.getString("ingredient_Cp");
 
-                recipeIngredient tmp_ingredient = new recipeIngredient(tmp_idx,tmp_Name,tmp_Cp);//여기 마지막 parameter잠간 없앰
+                recipeIngredient tmp_ingredient = new recipeIngredient(tmp_idx,tmp_Name,-1);
 
                 ingredient_list.add(tmp_ingredient);
             }
@@ -258,7 +257,7 @@ public class FoodList extends Fragment {
                 String tmp_order = tmp.getString("cooking_order");
                 int tmp_no = tmp.getInt("cooking_order_no");
 
-                recipeCooking tmp_cook = new recipeCooking(tmp_idx,tmp_order,tmp_no);//여기 마지막 parameter잠간 없앰
+                recipeCooking tmp_cook = new recipeCooking(tmp_idx,tmp_order,tmp_no,-1);
 
                 cooking_list.add(tmp_cook);
             }
