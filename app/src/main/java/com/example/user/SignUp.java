@@ -62,7 +62,7 @@ public class SignUp extends Fragment {
         idcheckButton = rootView.findViewById(R.id.check);
         pw1 = rootView.findViewById(R.id.pw1);
         pw2 = rootView.findViewById(R.id.pw2);
-        signupButton = rootView.findViewById(R.id.su);
+        signupButton = rootView.findViewById(R.id.fin);
 
 
         idcheckButton.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +92,8 @@ public class SignUp extends Fragment {
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
+
+                mainActivity.fragmentChange(1);
 
             }
         });

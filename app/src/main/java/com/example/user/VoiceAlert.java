@@ -251,16 +251,6 @@ public class VoiceAlert extends Fragment {
 
 
 
-        Button button = rootView.findViewById(R.id.bcbc);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.fragmentChange(1);
-            }
-
-        });
-
         buttonNext = rootView.findViewById(R.id.nex);
 
         buttonNext.setOnClickListener(new View.OnClickListener(){

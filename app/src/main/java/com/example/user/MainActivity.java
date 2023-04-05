@@ -22,6 +22,7 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
+    LogIn frameLayout0;
     Main frameLayout1;
     FoodList frameLayout2;
     TestAgain frameLayout3;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        frameLayout0 = new LogIn();
         frameLayout1 = new Main();
         frameLayout2 = new FoodList();
         frameLayout3 = new TestAgain();
@@ -73,8 +75,9 @@ public class MainActivity extends AppCompatActivity {
         frameLayout7 = new RecipeView();
         frameLayout8 = new SignUp();
 
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.lgn, frameLayout1).commit();
+                .replace(R.id.lgn, frameLayout0).commit();
 
     }
 
@@ -104,7 +107,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void fragmentChange(int index){
-        if(index == 1){//Main
+
+        if(index == 0){//Main
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.lgn, frameLayout0).commit();
+        }
+
+        else if(index == 1){//Main
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.lgn, frameLayout1).commit();
         }

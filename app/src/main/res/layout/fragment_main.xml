@@ -19,14 +19,19 @@
             android:layout_gravity="center"
             android:fontFamily="@font/font3"
             android:text="USER"
+            android:layout_weight="12"
             android:textColor="#111111"
             android:textSize="30dp" />
 
         <Button
-            android:id="@+id/signupbtn"
+            android:id="@+id/logout"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="signup" />
+            android:layout_height="match_parent"
+            android:background="@drawable/btn7"
+            android:enabled="true"
+            android:onClick="onClick"
+            android:textColor="#E91E63" />
 
 
     </LinearLayout>
