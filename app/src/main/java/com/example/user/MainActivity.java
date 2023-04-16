@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.os.IResultReceiver;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     VoiceAlert  frameLayout6;
     RecipeView frameLayout7;
     SignUp frameLayout8;
+    PwReset frameLayout9;
 
     MyHandler handle = new MyHandler(this);
 
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         frameLayout6 = new VoiceAlert();
         frameLayout7 = new RecipeView();
         frameLayout8 = new SignUp();
-
+        frameLayout9 = new PwReset();
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.lgn, frameLayout0).commit();
@@ -144,6 +146,11 @@ public class MainActivity extends AppCompatActivity {
         else if(index == 8 ){//signup
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.lgn, frameLayout8).commit();
+        }
+
+        else if(index == 9 ){//pwd reset
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.lgn, frameLayout9).commit();
         }
     }
 

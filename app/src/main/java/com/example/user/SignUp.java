@@ -24,6 +24,7 @@ public class SignUp extends Fragment {
     MainActivity mainActivity;
     EditText idcheck;
     Button idcheckButton;
+    Button button;
     EditText pw1;
     EditText pw2;
     Button signupButton;
@@ -63,6 +64,17 @@ public class SignUp extends Fragment {
         pw1 = rootView.findViewById(R.id.pw1);
         pw2 = rootView.findViewById(R.id.pw2);
         signupButton = rootView.findViewById(R.id.fin);
+        button = rootView.findViewById(R.id.rtn);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(0);
+            }
+
+        });
+
 
 
         idcheckButton.setOnClickListener(new View.OnClickListener() {

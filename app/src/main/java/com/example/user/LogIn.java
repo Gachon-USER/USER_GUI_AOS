@@ -61,6 +61,16 @@ public class LogIn extends Fragment {
 
         });
 
+        Button button3 = rootView.findViewById(R.id.forget);
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(9);
+            }
+
+        });
+
 
 
         // Inflate the layout for this fragment

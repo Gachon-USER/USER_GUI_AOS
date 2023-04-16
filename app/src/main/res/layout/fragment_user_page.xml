@@ -8,23 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#BBB0DC"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weight="1">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
 
-            >
-            <Button
-                android:id="@+id/set"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/setbtn"
-                android:enabled="true"
-                android:onClick="onClick"
-                android:textColor="#E91E63" />
-        </LinearLayout>
 
 
         <LinearLayout
@@ -47,20 +34,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-            <Button
-                android:id="@+id/v"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/back"
-                android:enabled="true"
-                android:onClick="onClick"
-                android:textColor="#E91E63" />
-        </LinearLayout>
 
     </LinearLayout>
 
