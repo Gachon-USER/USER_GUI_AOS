@@ -303,6 +303,19 @@ public class Main extends Fragment {
 
         });
 
+        Button button55 = rootView.findViewById(R.id.logout);
+
+        button55.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.fragmentChange(0);
+
+            }
+
+        });
+
+
+
         ListView contentlistView = rootView.findViewById(R.id.recommend_content);
         ListView userlistView = rootView.findViewById(R.id.recommend_user);
 

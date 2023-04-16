@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.os.IResultReceiver;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -22,6 +23,7 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
+    LogIn frameLayout0;
     Main frameLayout1;
     FoodList frameLayout2;
     TestAgain frameLayout3;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     VoiceAlert  frameLayout6;
     RecipeView frameLayout7;
     SignUp frameLayout8;
+    PwReset frameLayout9;
 
     MyHandler handle = new MyHandler(this);
 
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        frameLayout0 = new LogIn();
         frameLayout1 = new Main();
         frameLayout2 = new FoodList();
         frameLayout3 = new TestAgain();
@@ -72,9 +76,10 @@ public class MainActivity extends AppCompatActivity {
         frameLayout6 = new VoiceAlert();
         frameLayout7 = new RecipeView();
         frameLayout8 = new SignUp();
+        frameLayout9 = new PwReset();
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.lgn, frameLayout1).commit();
+                .replace(R.id.lgn, frameLayout0).commit();
 
     }
 
@@ -104,7 +109,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void fragmentChange(int index){
-        if(index == 1){//Main
+
+        if(index == 0){//Main
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.lgn, frameLayout0).commit();
+        }
+
+        else if(index == 1){//Main
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.lgn, frameLayout1).commit();
         }
@@ -135,6 +146,11 @@ public class MainActivity extends AppCompatActivity {
         else if(index == 8 ){//signup
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.lgn, frameLayout8).commit();
+        }
+
+        else if(index == 9 ){//pwd reset
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.lgn, frameLayout9).commit();
         }
     }
 

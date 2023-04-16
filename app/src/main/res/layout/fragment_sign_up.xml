@@ -4,25 +4,6 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-
-
-
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +28,7 @@
                 android:text="USER"
                 android:textSize="45dp"
                 android:fontFamily="@font/font"
-                android:textColor="#000002"/>
+                android:textColor="@color/purple_700"/>
 
         </LinearLayout>
 
@@ -71,7 +52,26 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+
+
+
+
     <LinearLayout
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
@@ -248,8 +248,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="비밀번호 분실시 답변"
+                    android:text="비밀번호를 확인해 주세요"
+                    android:textSize="15dp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/font3"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="비밀번호 재설정"
                     android:textSize="15dp"
                     android:textColor="#000000"
                     android:fontFamily="@font/font"/>
@@ -272,6 +281,7 @@
                     android:inputType="text"
                     android:text="답변 입력"
                     android:layout_gravity="center"/>
+
 
 
             </LinearLayout>
@@ -313,8 +323,20 @@
                 android:orientation="vertical">
 
                 <Button
+                    android:id="@+id/rtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:layout_gravity="left"
+                    android:background="@drawable/btn1"
+                    android:text="이미 회원이라면? - 로그인 하러 가기"
+                    android:textColor="#567ACE"/>
+
+
+
+                <Button
                     android:id="@+id/mov"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:layout_gravity="left"
@@ -322,17 +344,19 @@
                     android:text="더 나은 추천을 위해 선호도를 입력해 주세요!!"
                     android:textColor="#567ACE"/>
 
-
                 <Button
                     android:id="@+id/fin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
+                    android:ems="17"
                     android:inputType="text"
                     android:layout_gravity="center"
-                    android:background="@drawable/btn5"
+                    android:background="@drawable/btnl"
                     android:layout_marginTop="10dp"
                     android:text="가입 하기" />
+
+
+
 
 
             </LinearLayout>

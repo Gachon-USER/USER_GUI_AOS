@@ -72,6 +72,7 @@ public class RecipeView extends Fragment {
         ListView ingredient_list = rootView.findViewById(R.id.ingredient_list);
         ListView recipe_list = rootView.findViewById(R.id.recipe_list);
 
+        //오류 발생...??
         viewRecipeAdapter recipeAdapter = new viewRecipeAdapter(getActivity(),data.getCooking_list());
 
         recipe_list.setAdapter(recipeAdapter);
