@@ -15,6 +15,15 @@
         android:layout_gravity="center"
         android:layout_marginBottom="40dp"
         android:layout_marginTop="50dp"/>
+    <View
+        android:layout_width="250dp"
+        android:layout_height="1.2dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#E3CC07" />
+
+
 
     <TextView
         android:id="@+id/textView_signUpTitle"
@@ -23,7 +32,7 @@
         android:layout_gravity="center"
         android:text="회원가입"
         android:textSize="25sp"
-        style="@style/MySecoundColor"/>
+        android:textColor="#E3CC07" />
 
     <View
         android:id="@+id/view_line"
@@ -32,7 +41,19 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
-        android:background="@android:color/black" />
+        android:background="#E3CC07" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="12"
+        android:text="E-Mail을 입력"
+        android:textSize="15sp"
+        android:textColor="#FFC107"/>
+
+
 
     <EditText
         android:id="@+id/editText_email"
@@ -43,7 +64,19 @@
         android:hint="E-mail"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary" />
+        android:textColorHint="@color/colorPrimary"
+        android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="12"
+            android:text="비밀번호 입력"
+            android:textSize="15sp"
+            android:textColor="#FFC107"/>
+
+
 
     <EditText
         android:id="@+id/editText_passWord"
@@ -54,7 +87,17 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary" />
+        android:textColorHint="@color/colorPrimary"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="12"
+        android:text="비밀번호 확인"
+        android:textSize="15sp"
+        android:textColor="#FFC107"/>
 
     <EditText
         android:id="@+id/editText_passWordCheck"
@@ -69,12 +112,25 @@
 
 
     <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/btn_back"
+        android:background="@drawable/btn1"
+        android:ems="18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:text="이미 계정이 있으신가요?" />
+
+    <Button
         android:id="@+id/btn_join"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Join"
-        style="@style/buttonstyle"/>
+        android:ems="15"
+        android:text="제출하기"
+        android:textColor="#F6E656"
+        android:background="@drawable/btn6"/>
     <include
         layout="@layout/view_loader"
         android:layout_width="match_parent"

@@ -34,15 +34,7 @@ public class UserPage extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_user_page, container, false);
 
-        Button button = rootView.findViewById(R.id.v);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.fragmentChange(1);
-            }
-
-        });
 
 
         ImageButton button6 = rootView.findViewById(R.id.toList);

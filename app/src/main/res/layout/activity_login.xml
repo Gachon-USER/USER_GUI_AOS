@@ -26,13 +26,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:layout_marginBottom="50dp"
             android:fontFamily="casual"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="USER"
             android:textColor="@color/colorPrimary"
             android:textSize="40dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="Use Sound Evolve Recipe"
+            android:textColor="@color/yellow"
+            android:textSize="20dp" />
+
+
 
         <EditText
             android:id="@+id/edittext_email"
@@ -41,7 +55,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:ems="10"
+            android:ems="12"
             android:hint="E-mail"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorPrimary"
@@ -55,28 +69,41 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="Password"
+            android:ems="12"
+            android:hint="비밀번호"
             android:inputType="textPassword"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary" />
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="로그인"
-            tools:visibility="visible"
-            style="@style/buttonstyle"/>
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="로그인"
+                android:ems="15"
+                tools:visibility="visible"
+                style="@style/buttonstyle"/>
 
-        <Button
-            android:id="@+id/btn_signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="회원가입"
-            style="@style/buttonstyle"/>
+            <Button
+                android:id="@+id/btn_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="회원가입"
+                android:ems="15"
+                android:background="@drawable/btn1"/>
+
+            <Button
+                android:id="@+id/btn_pwdset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="15"
+                android:text="비밀번호 재설정"
+                android:background="@drawable/btn1"/>
+
+
     </LinearLayout>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText editTextPassword;
     private EditText editTextPasswordCheck;
     private Button buttonJoin;
+    private Button buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,20 @@ public class SignUpActivity extends AppCompatActivity {
         editTextEmail = (EditText) findViewById(R.id.editText_email);
         editTextPassword = (EditText) findViewById(R.id.editText_passWord);
         editTextPasswordCheck = (EditText) findViewById(R.id.editText_passWordCheck);
+
+        buttonBack = (Button) findViewById(R.id.btn_back);
+        buttonBack.setOnClickListener(new View.OnClickListener() {//회원가입 버튼을 누르면 회원가입 액티비티로
+            @Override
+            public void onClick(View v) {
+                // SignUpActivity 연결
+                Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
 
         buttonJoin = (Button) findViewById(R.id.btn_join);
         buttonJoin.setOnClickListener(new View.OnClickListener() {

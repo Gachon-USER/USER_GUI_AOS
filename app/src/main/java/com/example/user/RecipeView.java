@@ -46,15 +46,7 @@ public class RecipeView extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_recipe_view, container, false);
 
-        Button button = rootView.findViewById(R.id.tobc);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.fragmentChange(2);
-            }
-
-        });
 
         Button button2 = rootView.findViewById(R.id.strt);
 
