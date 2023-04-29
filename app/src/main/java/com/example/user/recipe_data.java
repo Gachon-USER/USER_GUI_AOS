@@ -6,11 +6,11 @@ public class recipe_data {
 
     ArrayList<recipeCooking> cooking_list;
     ArrayList<recipeIngredient> ingredient_list;
-    recipe_info info;
+    user_info info;
     int maxPage;
     int maxItem;
 
-    public recipe_data(ArrayList<recipeCooking> cooking_list, ArrayList<recipeIngredient> ingredient_list,recipe_info info){
+    public recipe_data(ArrayList<recipeCooking> cooking_list, ArrayList<recipeIngredient> ingredient_list, user_info info){
         this.cooking_list = cooking_list;
         this.ingredient_list = ingredient_list;
         this.maxPage = cooking_list.size();
@@ -58,11 +58,11 @@ public class recipe_data {
         this.ingredient_list = ingredient_list;
     }
 
-    public recipe_info getInfo() {
+    public user_info getInfo() {
         return info;
     }
 
-    public void setInfo(recipe_info info) {
+    public void setInfo(user_info info) {
         this.info = info;
     }
 

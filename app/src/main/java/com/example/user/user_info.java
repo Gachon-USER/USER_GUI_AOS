@@ -1,20 +1,20 @@
 package com.example.user;
 
-public class recipe_info {
+public class user_info {
 
     int ID;
     String Name;
     String Url;
     String tag;
 
-    public recipe_info(int ID,String Url,String Name,String tag){
+    public user_info(int ID, String Url, String Name, String tag){
         this.ID = ID;
         this.Name = Name;
         this.Url = Url;
         this.tag = tag;
     }
 
-    public recipe_info(String Name, String Url){
+    public user_info(String Name, String Url){
         this.Name = Name;
         this.Url = Url;
     }

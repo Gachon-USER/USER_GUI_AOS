@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,10 +16,14 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
     RecipeView frameLayout7;
     SignUp frameLayout8;
     PwReset frameLayout9;
+    String UID;
+
+    int lastfood;
+
+    String foodtaste;
 
     MyHandler handle = new MyHandler(this);
 
@@ -40,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent user_info = getIntent();
+
+        this.UID = user_info.getStringExtra("UID");
+        this.lastfood = user_info.getIntExtra("lastfood",0);
+        this.foodtaste = user_info.getStringExtra("foodtaste");
 
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -66,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
         frameLayout0 = new LogIn();
         frameLayout1 = new Main();
         frameLayout2 = new FoodList();
@@ -79,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         frameLayout9 = new PwReset();
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.lgn, frameLayout0).commit();
+                .replace(R.id.lgn, frameLayout1).commit();
 
     }
 
@@ -161,6 +176,36 @@ public class MainActivity extends AppCompatActivity {
         http.start();
     }
 
+    public void sendUpdateUserDetail(String user_added_item, String server_url) {
+
+        JSONObject user_Detail = new JSONObject();
+
+        JSONObject data = new JSONObject();
+
+        try{
+            user_Detail.put("UID",UID);
+            user_Detail.put("lastfood",lastfood);
+            user_Detail.put("foodtaste",foodtaste);
+
+            JSONObject added_item = new JSONObject();
+            added_item.put("ID",Integer.parseInt(user_added_item));
+
+            JSONArray list = new JSONArray();
+            list.put(added_item);
+
+            user_Detail.put("userRecipeList",list);
+
+            data.put("user_detail",user_Detail);
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        http_protocol http = new http_protocol(data.toString(),server_url,this.handle,1051,-1);
+
+        http.start();
+
+    }
 
     public static class MyHandler extends Handler {
         private final WeakReference<MainActivity> weakReference;
@@ -209,6 +254,12 @@ public class MainActivity extends AppCompatActivity {
                     activity.frameLayout1.send_result(result, 3);
                     // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
 
+                }else if(msg.what == 1014) {
+
+                    result = (String) msg.obj;
+                    activity.frameLayout1.send_result(result, 4);
+                    // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
+
                 }else if(msg.what == 102) {
 
                     result = (String) msg.obj;
@@ -229,12 +280,13 @@ public class MainActivity extends AppCompatActivity {
                     activity.frameLayout2.send_result(result, 2);
 
                     // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
-                }else if(msg.what == 103) {
+                }else if(msg.what == 1023) {
 
                     result = (String) msg.obj;
-                    //activity.frameLayout3.send_result(result);
-                    // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
+                    Log.d("con2",result);
+                    activity.frameLayout2.send_result(result, 3);
 
+                    // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
                 }else if(msg.what == 104){
 
                         result = (String) msg.obj;
@@ -246,7 +298,13 @@ public class MainActivity extends AppCompatActivity {
 
                         result = (String) msg.obj;
                         int control = Integer.parseInt(result);
-                        activity.frameLayout5.send_result(control);
+                        activity.frameLayout5.send_result(control,result);
+                    // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
+
+                }else if(msg.what == 1051){
+
+                    result = (String) msg.obj;
+                    activity.frameLayout5.send_result(-1,result);
                     // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
 
                 }else if(msg.what == 106){

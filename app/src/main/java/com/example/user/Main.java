@@ -21,30 +21,34 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Fragment {
 
     MainActivity mainActivity;
 
-    ArrayList<recipe_info> contentRecipeList;
-    ArrayList<recipe_info> userRecipeList;
+    ArrayList<user_info> contentRecipeList;
+    ArrayList<user_info> userRecipeList;
 
-    recipe_info selected_info = new recipe_info(0,"","라면","라면,짠맛");
+    user_info selected_info;
 
     ArrayList<recipeIngredient> ingredient_list;
     ArrayList<recipeCooking> cooking_list;
 
     RecipeAdapter contentRecipeAdapter;
-    RecipeAdapter userRecipeAdapter ;
+    RecipeAdapter userRecipeAdapter;
 
-    int user_id = 4;
+    String user_id;
 
     // 메인 액티비티 위에 올린다.
    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mainActivity = (MainActivity) getActivity();
+
+        int[] ptr = new int[1];
+        ptr[0] = mainActivity.lastfood;
+
+        get_recipe_data(1010,-1,ptr);
     }
 
     // 메인 액티비티에서 내려 온다.
@@ -368,19 +372,19 @@ public class Main extends Fragment {
 
     public void InitializeRecipeData()
     {
-        this.contentRecipeList = new ArrayList<recipe_info>();
-        this.userRecipeList = new ArrayList<recipe_info>();
+        this.contentRecipeList = new ArrayList<user_info>();
+        this.userRecipeList = new ArrayList<user_info>();
     }
 
-    public void get_recommend(int recipe_id,int user_id,int type, int num){
+    public void get_recommend(int recipe_id,String user_id,int type, int num){
 
         String Url = "http://9059-35-237-67-214.ngrok.io/recommend";
-        mainActivity.sendHttpApi("{\"last_ID\" : "+ Integer.toString(recipe_id) +",\"user_ID\" : "+ Integer.toString(user_id) +",\"type\" : "+ Integer.toString(type) +",\"num\" : "+ Integer.toString(num) +"}",Url,101,recipe_id);
+        mainActivity.sendHttpApi("{\"last_ID\" : "+ Integer.toString(recipe_id) +",\"user_ID\" : "+ user_id +",\"type\" : "+ Integer.toString(type) +",\"num\" : "+ Integer.toString(num) +"}",Url,101,recipe_id);
 
     }
 
     public void get_recipe_data(int con, int ID,int[] input){
-        String Url = "http://172.30.1.52:8080/android";
+        String Url = "http://10.0.2.2:8080/android";
         String JSON = null;
         try{
             switch (con){
@@ -418,6 +422,19 @@ public class Main extends Fragment {
                     Url = Url + "/recipeCooking";
                     JSON = "";
                     break;
+                case 1014:
+                    Url = Url + "/recipeListFind";
+
+                    JSONObject ptr_2 = new JSONObject();
+                    JSONArray ptr_arr_2 = new JSONArray();
+                    for(int i : input){
+                        JSONObject input_tmp = new JSONObject();
+                        input_tmp.put("ID",i);
+                        ptr_arr_2.put(input_tmp);
+                    }
+                    ptr_2.put("find",ptr_arr_2);
+                    JSON = ptr_2.toString();
+                    break;
             }
         }catch (JSONException e){
             e.printStackTrace();
@@ -439,11 +456,13 @@ public class Main extends Fragment {
                 String tmp_Name = tmp.getString("Name");
                 String tmp_tag = tmp.getString("recipe_tag");
 
-                recipe_info tmp_info = new recipe_info(tmp_ID,tmp_image_url,tmp_Name,tmp_tag);
+                user_info tmp_info = new user_info(tmp_ID,tmp_image_url,tmp_Name,tmp_tag);
                 if(con == 0){
                     contentRecipeList.add(tmp_info);
                 }else if(con == 1){
                     userRecipeList.add(tmp_info);
+                }else if(con == 4){
+                    selected_info = tmp_info;
                 }
             }
 
@@ -529,6 +548,8 @@ public class Main extends Fragment {
             this.ingredient_list = set_recipeIngredient_list(jsonObject);
         }else if (con == 3){
             this.cooking_list = set_recipeCooking_list(jsonObject);
+        }else if (con == 4){
+            set_recipe_info_list(jsonObject,con);
         }
 
         if(ingredient_list != null && cooking_list !=null){
