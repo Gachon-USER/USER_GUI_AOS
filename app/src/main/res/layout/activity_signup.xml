@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="50dp"/>
     <View
         android:layout_width="250dp"
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:hint="Password"
+        android:hint="비밀번호"
         android:inputType="textPassword"
         android:textColor="@color/colorPrimary"
         android:textColorHint="@color/colorPrimary"
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:hint="PasswordCheck"
+        android:hint="비밀번호 재입력"
         android:inputType="textPassword"
         android:textColor="@color/colorPrimary"
         android:textColorHint="@color/colorPrimary" />

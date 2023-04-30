@@ -25,7 +25,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="casual"
             android:gravity="center"
             android:includeFontPadding="false"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:fontFamily="casual"
             android:gravity="center"
             android:includeFontPadding="false"
@@ -81,9 +81,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="로그인"
-                android:ems="15"
+                android:ems="17"
                 tools:visibility="visible"
-                style="@style/buttonstyle"/>
+                style="@style/buttonstyle"
+                android:fontFamily="@font/font5"
+                android:textSize="15dp"/>
 
             <Button
                 android:id="@+id/btn_signup"
@@ -91,8 +93,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="회원가입"
-                android:ems="15"
-                android:background="@drawable/btn1"/>
+                android:ems="17"
+                android:background="@drawable/btn1"
+                android:textColor="#FB8AFF"
+                android:fontFamily="@font/font5"
+                android:textSize="15dp"/>
 
             <Button
                 android:id="@+id/btn_pwdset"
@@ -101,7 +106,10 @@
                 android:layout_gravity="center"
                 android:ems="15"
                 android:text="비밀번호 재설정"
-                android:background="@drawable/btn1"/>
+                android:background="@drawable/btn1"
+                android:textColor="#FB8AFF"
+                android:fontFamily="@font/font5"
+                android:textSize="15dp"/>
 
 
     </LinearLayout>

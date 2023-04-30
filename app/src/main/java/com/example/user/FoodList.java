@@ -55,7 +55,7 @@ public class FoodList extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_food_list, container, false);
 
-        Button button = rootView.findViewById(R.id.tob);
+
 
         ListView listView = rootView.findViewById(R.id.recommend_content);
 
@@ -77,14 +77,6 @@ public class FoodList extends Fragment {
                 load_recipe(ID);
 
             }
-        });
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.fragmentChange(1);
-            }
-
         });
 
 
