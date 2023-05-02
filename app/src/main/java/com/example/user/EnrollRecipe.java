@@ -34,13 +34,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
@@ -48,10 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 
 public class EnrollRecipe extends Fragment {
@@ -63,11 +57,12 @@ public class EnrollRecipe extends Fragment {
     Uri selectedImageUri;
     ArrayList<recipeCooking> add_recipe_cook = new ArrayList<recipeCooking>();
     ArrayList<recipeIngredient> add_recipe_ingredient = new ArrayList<recipeIngredient>();
+    String server_Url = "http://10.0.2.2:8080/android/saveRecipe";
 
     private static final int REQUEST_CODE = 0;
 
     MainActivity mainActivity;
-    recipe_info recipeInfo;
+    user_info recipeInfo;
     ArrayList<recipeIngredient> recipeIngredients;
     ArrayList<recipeCooking> recipeCookings;
     String name;
@@ -364,7 +359,6 @@ public class EnrollRecipe extends Fragment {
             e.printStackTrace();
         }
 
-        String server_Url = "http://172.30.1.52:8080/android/saveRecipe";
         Log.d("jsoned data",send_json.toString());
 
         upload_recipe(send_json,server_Url);
@@ -378,18 +372,26 @@ public class EnrollRecipe extends Fragment {
 
     }
 
-    public void send_result(int control){
+    public void update_userDetail(String user_added_item,String server_Url){
+
+        mainActivity.sendUpdateUserDetail(user_added_item,server_Url);
+
+    }
+
+    public void send_result(int control,String result){
 
         if(control==0)//저장이 안되었을때
         {
             this.control(false);
-            Toast.makeText(mainActivity.getApplicationContext(), "저장이 안됨", Toast.LENGTH_SHORT).show();
-        }
-        if(control==1)//저장이 잘되었을때
-        {
+            Toast.makeText(mainActivity.getApplicationContext(), "저장이 안됨 "+ result, Toast.LENGTH_SHORT).show();
+        }else if(control == -1){
             this.control(true);
-            Toast.makeText(mainActivity.getApplicationContext(), "recipe saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mainActivity.getApplicationContext(), "user detail update clear " + result, Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(mainActivity.getApplicationContext(), "recipe saved! " + result, Toast.LENGTH_SHORT).show();
+            update_userDetail(Integer.toString(control),server_Url);
         }
+
     }
 
     public void control(boolean tmp){

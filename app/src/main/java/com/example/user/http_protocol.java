@@ -18,10 +18,10 @@ public class http_protocol extends Thread{
     String mURL = null;
     String body = null;
     int ID = -1;
-    MainActivity.MyHandler handler = null;
+    Handler handler = null;
     int control;
 
-    public http_protocol(String input,String uri,MainActivity.MyHandler handler, int control,int ID){
+    public http_protocol(String input,String uri,Handler handler, int control,int ID){
 
         body = input;
 

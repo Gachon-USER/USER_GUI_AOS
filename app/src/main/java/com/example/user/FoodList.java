@@ -24,10 +24,10 @@ import java.util.ArrayList;
 public class FoodList extends Fragment {
 
 
-    ArrayList<recipe_info> recipeDataList = null;
+    ArrayList<user_info> recipeDataList = null;
     ArrayList<recipeCooking> cooking_list = null;
     ArrayList<recipeIngredient> ingredient_list = null;
-    recipe_info selected_info = null;
+    user_info selected_info = null;
 
     MainActivity mainActivity;
 
@@ -163,11 +163,11 @@ public class FoodList extends Fragment {
 
     public void InitializeRecipeData()
     {
-        recipeDataList = new ArrayList<recipe_info>();
+        recipeDataList = new ArrayList<user_info>();
     }
 
     public void get_recipe_data(int con, int ID){
-        String Url = "http://172.30.1.52:8080/android";
+        String Url = "http://10.0.2.2:8080/android";
         switch (con){
             case 102:
                 Url = Url + "/recipeList";
@@ -197,7 +197,7 @@ public class FoodList extends Fragment {
                 String tmp_Name = tmp.getString("Name");
                 String tmp_tag = tmp.getString("recipe_tag");
 
-                recipe_info tmp_info = new recipe_info(tmp_ID,tmp_image_url,tmp_Name,tmp_tag);
+                user_info tmp_info = new user_info(tmp_ID,tmp_image_url,tmp_Name,tmp_tag);
 
                 recipeDataList.add(tmp_info);
             }

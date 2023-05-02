@@ -16,9 +16,9 @@ public class RecipeAdapter extends BaseAdapter {
 
     Context mContext = null;
     LayoutInflater mLayoutInflater = null;
-    ArrayList<recipe_info> sample;
+    ArrayList<user_info> sample;
 
-    public RecipeAdapter(Context context, ArrayList<recipe_info> data) {
+    public RecipeAdapter(Context context, ArrayList<user_info> data) {
         mContext = context;
         sample = data;
         mLayoutInflater = LayoutInflater.from(mContext);
@@ -35,7 +35,7 @@ public class RecipeAdapter extends BaseAdapter {
     }
 
     @Override
-    public recipe_info getItem(int position) {
+    public user_info getItem(int position) {
         return sample.get(position);
     }
 

@@ -2,6 +2,9 @@ package com.example.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
 
 public class LogInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -61,10 +69,9 @@ public class LogInActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    getUser("http://10.0.2.2:8080/android/getUserDetail",user.getUid());
                 } else {
+
                 }
             }
         };
@@ -97,6 +104,76 @@ public class LogInActivity extends AppCompatActivity {
         super.onStop();
         if (firebaseAuthListener != null) {
             mAuth.removeAuthStateListener(firebaseAuthListener);
+        }
+    }
+
+    public void getUser(String server_url,String UID) {
+
+        logInHandler handler = new logInHandler(this);
+
+        server_url = server_url + "?UID=" + UID;
+
+        http_protocol http = new http_protocol("",server_url,handler,1031,-1);
+
+        http.start();
+
+    }
+
+    public static class logInHandler extends Handler {
+        private final WeakReference<LogInActivity> weakReference;
+
+        public logInHandler(LogInActivity Activity) {
+            weakReference = new WeakReference<LogInActivity>(Activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            LogInActivity activity = weakReference.get();
+
+            String result;
+
+            if (activity != null) {
+
+                if(msg.what == 1031) {
+
+                    result = (String) msg.obj;
+
+                    if(result == "-1"){
+                        Toast.makeText(activity.getApplicationContext(), "get firebase user failed.", Toast.LENGTH_SHORT).show();
+                    }else{
+
+                        String UID = null;
+                        int lastfood = 0;
+                        String foodtaste = null;
+
+                        try{
+                            JSONObject json = new JSONObject(result);
+                            UID = json.getString("UID");
+                            lastfood = json.getInt("lastfood");
+                            foodtaste = json.getString("foodtaste");
+
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        intent.putExtra("UID",UID);
+                        intent.putExtra("lastfood",lastfood);
+                        intent.putExtra("foodtaste",foodtaste);
+                        activity.startActivity(intent);
+                        activity.finish();
+                    }
+
+                }else if(msg.what == 404){
+
+                    result = "Error!";
+
+                }
+
+            }
+
         }
     }
 }
