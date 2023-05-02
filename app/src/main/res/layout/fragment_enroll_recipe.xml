@@ -104,6 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:layout_marginLeft="10dp"
                 android:inputType="text"
                 android:background="@drawable/btn6"
                 android:text="사진 업로드"
@@ -166,6 +167,231 @@
                 android:textColorHint="#032149"
                 android:inputType="text"
                 android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="카테고리"
+                android:textSize="20dp"
+                android:fontFamily="@font/font"
+                android:textColor="#000002"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <RadioButton
+                    android:id="@+id/kor"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radiobtn"
+                    android:button="@null"
+                    android:checked="true"
+                    android:fontFamily="@font/font5"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="한식"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/selector_radio_text" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/jpn"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="일식"
+                    android:fontFamily="@font/font5"/>
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/chn"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="중식"
+                    android:fontFamily="@font/font5"/>
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/wst"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="양식"
+                    android:fontFamily="@font/font5"/>
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/radioGroup2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/dak"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="닭고기"
+                    android:fontFamily="@font/font5"/>
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/seo"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="소고기"
+                    android:fontFamily="@font/font5"/>
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/doe"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="돼지고기"
+                    android:fontFamily="@font/font5"/>
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/yng"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="양고기"
+                    android:fontFamily="@font/font5"/>
+
+
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/radioGroup3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/spc"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="매운맛"
+                    android:fontFamily="@font/font5"/>
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/slt"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="짠맛"
+                    android:fontFamily="@font/font5"/>
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/swt"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="단맛"
+                    android:fontFamily="@font/font5"/>
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/sor"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn"
+                    android:textColor="@drawable/selector_radio_text"
+                    android:button="@null"
+                    android:textAlignment="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="신맛"
+                    android:fontFamily="@font/font5"/>
+
+
+
+            </RadioGroup>
+
+
 
         </LinearLayout>
 
