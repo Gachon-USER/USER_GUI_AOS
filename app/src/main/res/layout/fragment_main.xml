@@ -111,11 +111,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_weight="1"
+                android:weightSum="4"
                 >
 
                 <ImageButton
                     android:id="@+id/kor"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:enabled="true"
                     android:onClick="onClick"
@@ -128,7 +129,7 @@
 
                 <ImageButton
                     android:id="@+id/jap"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/jap"
                     android:enabled="true"
@@ -137,7 +138,7 @@
 
                 <ImageButton
                     android:id="@+id/chi"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/chi"
                     android:enabled="true"
@@ -147,7 +148,7 @@
 
                 <ImageButton
                     android:id="@+id/wes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/wes"
                     android:enabled="true"
@@ -170,7 +171,7 @@
 
                 <ImageButton
                     android:id="@+id/ckn"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:enabled="true"
                     android:onClick="onClick"
@@ -183,7 +184,7 @@
 
                 <ImageButton
                     android:id="@+id/cow"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/cow"
                     android:enabled="true"
@@ -192,7 +193,7 @@
 
                 <ImageButton
                     android:id="@+id/pig"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/pig"
                     android:enabled="true"
@@ -202,7 +203,7 @@
 
                 <ImageButton
                     android:id="@+id/she"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/she"
                     android:enabled="true"
@@ -226,7 +227,7 @@
 
                 <ImageButton
                     android:id="@+id/spi"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:enabled="true"
                     android:onClick="onClick"
@@ -239,7 +240,7 @@
 
                 <ImageButton
                     android:id="@+id/sal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/sal"
                     android:enabled="true"
@@ -248,7 +249,7 @@
 
                 <ImageButton
                     android:id="@+id/swe"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/swe"
                     android:enabled="true"
@@ -258,7 +259,7 @@
 
                 <ImageButton
                     android:id="@+id/sou"
-                    android:layout_width="wrap_content"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/sou"
                     android:enabled="true"

@@ -29,6 +29,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -58,6 +60,27 @@ public class EnrollRecipe extends Fragment {
     ArrayList<recipeCooking> add_recipe_cook = new ArrayList<recipeCooking>();
     ArrayList<recipeIngredient> add_recipe_ingredient = new ArrayList<recipeIngredient>();
     String server_Url = "http://10.0.2.2:8080/android/saveRecipe";
+
+
+    RadioButton kor;
+    RadioButton jpn;
+    RadioButton chn;
+    RadioButton wst;
+
+    RadioButton dak;
+    RadioButton seo;
+    RadioButton doe;
+    RadioButton yng;
+
+    RadioButton spc;
+    RadioButton slt;
+    RadioButton swt;
+    RadioButton sor;
+
+
+    RadioGroup gr1;
+    RadioGroup gr2;
+    RadioGroup gr3;
 
     private static final int REQUEST_CODE = 0;
 
@@ -119,6 +142,161 @@ public class EnrollRecipe extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_enroll_recipe, container, false);
 
         verifyStoragePermissions(getActivity());
+
+
+        kor = rootView.findViewById(R.id.kor);
+        jpn = rootView.findViewById(R.id.jpn);
+        chn = rootView.findViewById(R.id.chn);
+        wst = rootView.findViewById(R.id.wst);
+
+        dak = rootView.findViewById(R.id.dak);
+        seo = rootView.findViewById(R.id.seo);
+        doe = rootView.findViewById(R.id.doe);
+        yng = rootView.findViewById(R.id.yng);
+
+        spc = rootView.findViewById(R.id.spc);
+        slt = rootView.findViewById(R.id.slt);
+        swt = rootView.findViewById(R.id.swt);
+        sor = rootView.findViewById(R.id.sor);
+
+
+        gr1 = rootView.findViewById(R.id.radioGroup);
+        gr2 = rootView.findViewById(R.id.radioGroup2);
+        gr3 = rootView.findViewById(R.id.radioGroup3);
+
+
+        gr1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                dak.setChecked(false);
+                seo.setChecked(false);
+                doe.setChecked(false);
+                yng.setChecked(false);
+                spc.setChecked(false);
+                slt.setChecked(false);
+                swt.setChecked(false);
+                sor.setChecked(false);
+
+
+                switch(checkedId){
+
+                    case R.id.kor:
+
+                        break;
+
+                    case R.id.jpn:
+
+                        break;
+
+                    case R.id.chn:
+
+                        break;
+
+                    case R.id.wst:
+
+                        break;
+
+
+                }
+
+
+
+            }
+        });
+
+
+
+        gr2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                kor.setChecked(false);
+                jpn.setChecked(false);
+                chn.setChecked(false);
+                wst.setChecked(false);
+                spc.setChecked(false);
+                slt.setChecked(false);
+                swt.setChecked(false);
+                sor.setChecked(false);
+
+
+                switch(checkedId){
+
+                    case R.id.dak:
+
+                        break;
+
+                    case R.id.seo:
+
+                        break;
+
+                    case R.id.doe:
+
+                        break;
+
+                    case R.id.yng:
+
+                        break;
+
+
+                }
+
+
+            }
+        });
+
+
+        gr3.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                kor.setChecked(false);
+                jpn.setChecked(false);
+                chn.setChecked(false);
+                wst.setChecked(false);
+                dak.setChecked(false);
+                seo.setChecked(false);
+                doe.setChecked(false);
+                yng.setChecked(false);
+
+
+                switch(checkedId){
+
+                    case R.id.spc:
+
+                        break;
+
+                    case R.id.slt:
+
+                        break;
+
+                    case R.id.swt:
+
+                        break;
+
+                    case R.id.sor:
+
+                        break;
+
+
+                }
+
+
+
+            }
+        });
+
+
 
         recipe_name = rootView.findViewById(R.id.name);
         recipe_tag = rootView.findViewById(R.id.type);

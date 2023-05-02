@@ -157,7 +157,7 @@
 
 
             <EditText
-                android:background="@drawable/inputbox"
+                android:background="@drawable/inputbox2"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
@@ -191,6 +191,8 @@
                 android:textColor="#000002"/>
 
             <RadioGroup
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -258,6 +260,8 @@
             </RadioGroup>
 
             <RadioGroup
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:id="@+id/radioGroup2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -325,6 +329,8 @@
             </RadioGroup>
 
             <RadioGroup
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:id="@+id/radioGroup3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -419,7 +425,7 @@
 
 
             <EditText
-                android:background="@drawable/inputbox"
+                android:background="@drawable/inputbox2"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
