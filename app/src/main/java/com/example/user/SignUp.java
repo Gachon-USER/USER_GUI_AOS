@@ -70,7 +70,7 @@ public class SignUp extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(0);
+                mainActivity.fragmentChange(0,null);
             }
 
         });
@@ -105,7 +105,7 @@ public class SignUp extends Fragment {
                     e.printStackTrace();
                 }
 
-                mainActivity.fragmentChange(1);
+                mainActivity.fragmentChange(1,null);
 
             }
         });

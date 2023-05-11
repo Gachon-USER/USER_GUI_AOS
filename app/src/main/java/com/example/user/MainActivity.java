@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void fragmentChange(int index){
+    public void fragmentChange(int index,Bundle data){
 
         if(index == 0){//Main
             getSupportFragmentManager().beginTransaction()
@@ -135,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.lgn, frameLayout1).commit();
         }
         else if(index == 2){//foodlist
+            if(data != null)
+                frameLayout2.setArguments(data);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.lgn, frameLayout2).commit();
         }

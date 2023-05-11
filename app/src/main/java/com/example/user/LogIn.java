@@ -45,7 +45,7 @@ public class LogIn extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(1);
+                mainActivity.fragmentChange(1,null);
             }
 
         });
@@ -56,7 +56,7 @@ public class LogIn extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(8);
+                mainActivity.fragmentChange(8,null);
             }
 
         });
@@ -66,7 +66,7 @@ public class LogIn extends Fragment {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(9);
+                mainActivity.fragmentChange(9,null);
             }
 
         });

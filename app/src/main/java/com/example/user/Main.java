@@ -25,21 +25,15 @@ import java.util.ArrayList;
 public class Main extends Fragment {
 
     MainActivity mainActivity;
-
     ArrayList<user_info> contentRecipeList;
     ArrayList<user_info> userRecipeList;
-
     user_info selected_info;
-
     ArrayList<recipeIngredient> ingredient_list;
     ArrayList<recipeCooking> cooking_list;
-
     RecipeAdapter contentRecipeAdapter;
     RecipeAdapter userRecipeAdapter;
-
     String user_id;
 
-    // 메인 액티비티 위에 올린다.
    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -66,16 +60,16 @@ public class Main extends Fragment {
 
         TextView Last_tag = rootView.findViewById(R.id.Last_tag);
 
-        Last_info.setText(selected_info.getName());
+//        Last_info.setText(selected_info.getName());
 
-        Last_tag.setText(selected_info.getTag());
+//        Last_tag.setText(selected_info.getTag());
 
         ImageButton button2 = rootView.findViewById(R.id.toL);
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                mainActivity.fragmentChange(2,null);
             }
 
         });
@@ -85,7 +79,7 @@ public class Main extends Fragment {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(4);
+                mainActivity.fragmentChange(4,null);
             }
 
         });
@@ -95,7 +89,7 @@ public class Main extends Fragment {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(1);
+                mainActivity.fragmentChange(1,null);
             }
 
         });
@@ -105,7 +99,7 @@ public class Main extends Fragment {
         button15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(3);
+                mainActivity.fragmentChange(3,null);
             }
 
         });
@@ -116,7 +110,7 @@ public class Main extends Fragment {
         button16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(5);
+                mainActivity.fragmentChange(5,null);
 
             }
 
@@ -128,7 +122,7 @@ public class Main extends Fragment {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(6);
+                mainActivity.fragmentChange(6,null);
             }
 
         });
@@ -139,7 +133,7 @@ public class Main extends Fragment {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                mainActivity.fragmentChange(2,null);
 
             }
 
@@ -147,38 +141,14 @@ public class Main extends Fragment {
 
 
 
-        ImageButton button40 = rootView.findViewById(R.id.kor);
+        ImageButton korCategory = rootView.findViewById(R.id.kor);
 
-        button40.setOnClickListener(new View.OnClickListener() {
+        korCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
-
-            }
-
-        });
-
-
-
-
-        ImageButton button41 = rootView.findViewById(R.id.jap);
-
-        button41.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.fragmentChange(2);
-
-            }
-
-        });
-
-
-        ImageButton button43 = rootView.findViewById(R.id.chi);
-
-        button43.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                Bundle data = new Bundle(1);
+                data.putString("Category","kor");
+                mainActivity.fragmentChange(2,data);
 
             }
 
@@ -187,12 +157,43 @@ public class Main extends Fragment {
 
 
 
-        ImageButton button44 = rootView.findViewById(R.id.wes);
+        ImageButton japCategory = rootView.findViewById(R.id.jap);
 
-        button44.setOnClickListener(new View.OnClickListener() {
+        japCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                Bundle data = new Bundle(1);
+                data.putString("Category","jap");
+                mainActivity.fragmentChange(2,data);
+
+            }
+
+        });
+
+
+        ImageButton chinaCategory = rootView.findViewById(R.id.chi);
+
+        chinaCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle data = new Bundle(1);
+                data.putString("Category","chi");
+                mainActivity.fragmentChange(2,data);
+            }
+
+        });
+
+
+
+
+        ImageButton westCategory = rootView.findViewById(R.id.wes);
+
+        westCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle data = new Bundle(1);
+                data.putString("Category","wes");
+                mainActivity.fragmentChange(2,data);
 
             }
 
@@ -201,12 +202,15 @@ public class Main extends Fragment {
 
 
 
-        ImageButton button45 = rootView.findViewById(R.id.ckn);
+        ImageButton chickenCategory = rootView.findViewById(R.id.ckn);
 
-        button45.setOnClickListener(new View.OnClickListener() {
+        chickenCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+
+                Bundle data = new Bundle(1);
+                data.putString("Category","ckn");
+                mainActivity.fragmentChange(2,data);
 
             }
 
@@ -215,38 +219,28 @@ public class Main extends Fragment {
 
 
 
-        ImageButton button46 = rootView.findViewById(R.id.cow);
+        ImageButton cowCategory = rootView.findViewById(R.id.cow);
 
-        button46.setOnClickListener(new View.OnClickListener() {
+        cowCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                Bundle data = new Bundle(1);
+                data.putString("Category","cow");
+                mainActivity.fragmentChange(2,data);
 
             }
 
         });
 
 
-        ImageButton button47 = rootView.findViewById(R.id.pig);
+        ImageButton pigCategory = rootView.findViewById(R.id.pig);
 
-        button47.setOnClickListener(new View.OnClickListener() {
+        pigCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
-
-            }
-
-        });
-
-
-
-
-        ImageButton button48 = rootView.findViewById(R.id.she);
-
-        button48.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                Bundle data = new Bundle(1);
+                data.putString("Category","pig");
+                mainActivity.fragmentChange(2,data);
 
             }
 
@@ -255,13 +249,14 @@ public class Main extends Fragment {
 
 
 
+        ImageButton sheepCategory = rootView.findViewById(R.id.she);
 
-        ImageButton button49 = rootView.findViewById(R.id.spi);
-
-        button49.setOnClickListener(new View.OnClickListener() {
+        sheepCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                Bundle data = new Bundle(1);
+                data.putString("Category","she");
+                mainActivity.fragmentChange(2,data);
 
             }
 
@@ -270,24 +265,15 @@ public class Main extends Fragment {
 
 
 
-        ImageButton button50 = rootView.findViewById(R.id.sal);
 
-        button50.setOnClickListener(new View.OnClickListener() {
+        ImageButton spicyCategory = rootView.findViewById(R.id.spi);
+
+        spicyCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
-
-            }
-
-        });
-
-
-        ImageButton button51 = rootView.findViewById(R.id.swe);
-
-        button51.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                Bundle data = new Bundle(1);
+                data.putString("Category","spi");
+                mainActivity.fragmentChange(2,data);
 
             }
 
@@ -296,12 +282,44 @@ public class Main extends Fragment {
 
 
 
-        ImageButton button52 = rootView.findViewById(R.id.sou);
+        ImageButton saltCategory = rootView.findViewById(R.id.sal);
 
-        button52.setOnClickListener(new View.OnClickListener() {
+        saltCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                Bundle data = new Bundle(1);
+                data.putString("Category","sal");
+                mainActivity.fragmentChange(2,data);
+
+            }
+
+        });
+
+
+        ImageButton sweetCategory = rootView.findViewById(R.id.swe);
+
+        sweetCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle data = new Bundle(1);
+                data.putString("Category","swe");
+                mainActivity.fragmentChange(2,data);
+
+            }
+
+        });
+
+
+
+
+        ImageButton souCategory = rootView.findViewById(R.id.sou);
+
+        souCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle data = new Bundle(1);
+                data.putString("Category","sou");
+                mainActivity.fragmentChange(2,data);
 
             }
 
@@ -312,7 +330,7 @@ public class Main extends Fragment {
         button55.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(0);
+                mainActivity.fragmentChange(0,null);
 
             }
 
@@ -325,7 +343,7 @@ public class Main extends Fragment {
 
         this.InitializeRecipeData();
 
-        this.get_recommend(selected_info.getID(),user_id,0,2);
+//        this.get_recommend(selected_info.getID(),user_id,0,2);
 
         contentRecipeAdapter = new RecipeAdapter(getActivity(), contentRecipeList);
         userRecipeAdapter = new RecipeAdapter(getActivity(), userRecipeList);
@@ -556,7 +574,7 @@ public class Main extends Fragment {
             recipe_data ptr = new recipe_data(cooking_list,ingredient_list,selected_info);
 
             mainActivity.frameLayout7.setData(ptr);
-            mainActivity.fragmentChange(7);
+            mainActivity.fragmentChange(7,null);
         }
 
     }

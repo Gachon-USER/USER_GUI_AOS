@@ -61,6 +61,8 @@ public class EnrollRecipe extends Fragment {
     ArrayList<recipeIngredient> add_recipe_ingredient = new ArrayList<recipeIngredient>();
     String server_Url = "http://10.0.2.2:8080/android/saveRecipe";
 
+    String main_tag = "None";
+
 
     RadioButton kor;
     RadioButton jpn;
@@ -185,19 +187,19 @@ public class EnrollRecipe extends Fragment {
                 switch(checkedId){
 
                     case R.id.kor:
-
+                        main_tag = "한식";
                         break;
 
                     case R.id.jpn:
-
+                        main_tag = "일식";
                         break;
 
                     case R.id.chn:
-
+                        main_tag = "중식";
                         break;
 
                     case R.id.wst:
-
+                        main_tag = "양식";
                         break;
 
 
@@ -230,19 +232,19 @@ public class EnrollRecipe extends Fragment {
                 switch(checkedId){
 
                     case R.id.dak:
-
+                        main_tag = "닭고기";
                         break;
 
                     case R.id.seo:
-
+                        main_tag = "소고기";
                         break;
 
                     case R.id.doe:
-
+                        main_tag = "돼지고기";
                         break;
 
                     case R.id.yng:
-
+                        main_tag = "양고기";
                         break;
 
 
@@ -273,19 +275,19 @@ public class EnrollRecipe extends Fragment {
                 switch(checkedId){
 
                     case R.id.spc:
-
+                        main_tag = "매운맛";
                         break;
 
                     case R.id.slt:
-
+                        main_tag = "짠맛";
                         break;
 
                     case R.id.swt:
-
+                        main_tag = "단맛";
                         break;
 
                     case R.id.sor:
-
+                        main_tag = "신맛";
                         break;
 
 
@@ -319,7 +321,7 @@ public class EnrollRecipe extends Fragment {
             @Override
             public void onClick(View v) {
 
-                mainActivity.fragmentChange(1);
+                mainActivity.fragmentChange(1,null);
             }
 
         });
@@ -348,7 +350,7 @@ public class EnrollRecipe extends Fragment {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                mainActivity.fragmentChange(2,null);
             }
 
         });
@@ -358,7 +360,7 @@ public class EnrollRecipe extends Fragment {
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(4);
+                mainActivity.fragmentChange(4,null);
             }
 
         });
@@ -368,7 +370,7 @@ public class EnrollRecipe extends Fragment {
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(1);
+                mainActivity.fragmentChange(1,null);
             }
 
         });
@@ -378,7 +380,7 @@ public class EnrollRecipe extends Fragment {
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(3);
+                mainActivity.fragmentChange(3,null);
             }
         });
 
@@ -388,7 +390,7 @@ public class EnrollRecipe extends Fragment {
         button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(5);
+                mainActivity.fragmentChange(5,null);
 
             }
 
@@ -483,7 +485,13 @@ public class EnrollRecipe extends Fragment {
     public void upload_call(String Url_input){
         String name = recipe_name.getText().toString();
         String Url = Url_input;
-        String tag = recipe_tag.getText().toString();
+
+        if(main_tag == null){
+            Toast.makeText(mainActivity.getApplicationContext(), "카테고리 분류를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String tag = main_tag + "," + recipe_tag.getText().toString();
 
         JSONObject recipe_info = new JSONObject();
         try {
@@ -577,7 +585,7 @@ public class EnrollRecipe extends Fragment {
         if(tmp){//저장이 되었을때
             Log.d("saved","저장이 잘 되었음");
             recipe_name.setText("");
-            mainActivity.fragmentChange(1);//메인프레그먼트로 이동
+            mainActivity.fragmentChange(1,null);//메인프레그먼트로 이동
         }
         else{//저장이 안되었을때
             recipe_name.setText("");

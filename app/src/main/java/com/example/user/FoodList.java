@@ -33,6 +33,8 @@ public class FoodList extends Fragment {
 
     JSONObject jsonObject = null;
 
+    String Category = null;
+
     RecipeAdapter recipeAdapter = null;
     // 메인 액티비티 위에 올린다.
     @Override
@@ -52,16 +54,19 @@ public class FoodList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Bundle args = getArguments();
+
+        if(args!=null){
+            Category = args.getString("Category");
+        }
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_food_list, container, false);
-
-
 
         ListView listView = rootView.findViewById(R.id.recommend_content);
 
         this.InitializeRecipeData();
 
-        this.get_recipe_data(102,-1);
+        this.get_recipe_data(102,-1,Category);
 
         recipeAdapter = new RecipeAdapter(getActivity(), recipeDataList);
 
@@ -86,7 +91,7 @@ public class FoodList extends Fragment {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                mainActivity.fragmentChange(2,null);
             }
 
         });
@@ -96,7 +101,7 @@ public class FoodList extends Fragment {
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(4);
+                mainActivity.fragmentChange(4,null);
             }
 
         });
@@ -106,7 +111,7 @@ public class FoodList extends Fragment {
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(1);
+                mainActivity.fragmentChange(1,null);
             }
 
         });
@@ -116,7 +121,7 @@ public class FoodList extends Fragment {
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(3);
+                mainActivity.fragmentChange(3,null);
             }
 
         });
@@ -127,7 +132,7 @@ public class FoodList extends Fragment {
         button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(5);
+                mainActivity.fragmentChange(5,null);
 
             }
 
@@ -154,9 +159,9 @@ public class FoodList extends Fragment {
         // 추가 개발 필요 (스프링 서버 http 요청, ID 값에 해당하는 레시피 추가 데이터 호출 및 데이터화.)
         // 필요 데이터를 어캐 끌어다 가져오는가에 대해선 위에 tmp 함수 형태처럼 만들면 됨.
 
-        get_recipe_data(1021,ID);
+        get_recipe_data(1021,ID,null);
 
-        get_recipe_data(1022,ID);
+        get_recipe_data(1022,ID,null);
 
     }
 
@@ -166,11 +171,17 @@ public class FoodList extends Fragment {
         recipeDataList = new ArrayList<user_info>();
     }
 
-    public void get_recipe_data(int con, int ID){
+    public void get_recipe_data(int con, int ID,String Category){
         String Url = "http://10.0.2.2:8080/android";
+
         switch (con){
             case 102:
-                Url = Url + "/recipeList";
+
+                if(Category == null){
+                    Url = Url + "/recipeList";
+                }else{
+                    Url = Url + "/recipeList/category?tag_string="+Category;
+                }
                 break;
             case 1021:
                 Url = Url + "/recipeIngredient";
@@ -287,7 +298,7 @@ public class FoodList extends Fragment {
             recipe_data ptr = new recipe_data(cooking_list,ingredient_list,selected_info);
 
             mainActivity.frameLayout7.setData(ptr);
-            mainActivity.fragmentChange(7);
+            mainActivity.fragmentChange(7,null);
         }
 
     } // http_protocol 부분을 Httpjson 으로 변경 (Asynctask 관련 문제로 인한 미지원)

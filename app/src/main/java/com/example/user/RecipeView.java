@@ -55,7 +55,7 @@ public class RecipeView extends Fragment {
             public void onClick(View v) {
 
                 mainActivity.frameLayout6.setData(data);
-                mainActivity.fragmentChange(6);
+                mainActivity.fragmentChange(6,null);
 
             }
 
@@ -84,7 +84,7 @@ public class RecipeView extends Fragment {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(2);
+                mainActivity.fragmentChange(2,null);
             }
 
         });
@@ -94,7 +94,7 @@ public class RecipeView extends Fragment {
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(4);
+                mainActivity.fragmentChange(4,null);
             }
 
         });
@@ -104,7 +104,7 @@ public class RecipeView extends Fragment {
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(1);
+                mainActivity.fragmentChange(1,null);
             }
 
         });
@@ -114,7 +114,7 @@ public class RecipeView extends Fragment {
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(3);
+                mainActivity.fragmentChange(3,null);
             }
 
         });
@@ -125,7 +125,7 @@ public class RecipeView extends Fragment {
         button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.fragmentChange(5);
+                mainActivity.fragmentChange(5,null);
 
             }
 
