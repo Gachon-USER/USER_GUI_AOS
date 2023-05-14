@@ -317,9 +317,11 @@ public class MainActivity extends AppCompatActivity {
                         try{
                             JSONObject json = new JSONObject(result);
                             String intent = json.getString("intent");
+                            String NER = json.getString("NER_result");
                             int control = Integer.parseInt(intent);
+                            int append = Integer.parseInt(NER);
                             Log.d("intent","result : "+ control);
-                            activity.frameLayout6.Chat_result(control);
+                            activity.frameLayout6.Chat_result(control,append);
 
                         }catch (Exception e){
                             e.printStackTrace();

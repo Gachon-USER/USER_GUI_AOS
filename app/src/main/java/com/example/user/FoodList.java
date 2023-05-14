@@ -31,8 +31,6 @@ public class FoodList extends Fragment {
 
     MainActivity mainActivity;
 
-    JSONObject jsonObject = null;
-
     String Category = null;
 
     RecipeAdapter recipeAdapter = null;
@@ -137,18 +135,6 @@ public class FoodList extends Fragment {
             }
 
         });
-        /*ImageButton button_ex = rootView.findViewById(R.id.toE);
-
-        button_ex.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int ID = 0;
-                mainActivity.frameLayout7.setData(tmp_load_recipe(ID)); // 지금은 그냥 0번 인덱스로 퉁쳐져 있으나 차후 해당 아이템의 recipe_data 인덱스를 찾아서 넘겨줘야 함.
-                mainActivity.fragmentChange(7);
-                //일단 지금은 방식 전검을 위해 이런식으로 아직 빈 버튼에 구현하였지만 추후 보여줄 아이템 별로 해당 아이템에 같은 구조로 로직 처리 해야함
-            }
-
-        });*/
 
         return rootView;
 
