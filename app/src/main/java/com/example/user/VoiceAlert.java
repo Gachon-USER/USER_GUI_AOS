@@ -80,7 +80,7 @@ public class VoiceAlert extends Fragment {
         if(timerRunning){
             stopTimer();
         }else{
-            startTimer();
+            startTimer(-1);
         }
     }
 
@@ -234,7 +234,7 @@ public class VoiceAlert extends Fragment {
                     newText += matches.get(i);
                 }
                 // Chat_API 주소지 박아줄것.
-                request_Chat(newText,"http://9059-35-237-67-214.ngrok.io/chat_request");
+                request_Chat(newText,"http://10.0.2.2:8088/chat_request");
 
                 StopRecord();
             }
@@ -441,6 +441,8 @@ public class VoiceAlert extends Fragment {
                 barCurrentValue = 0;
                 current_index = 0;
                 Toast.makeText(mainActivity.getApplicationContext(),"첫 페이지 입니다.",Toast.LENGTH_SHORT).show();
+
+                ResetText();
             }
         }
         bar.setProgress(barCurrentValue);
