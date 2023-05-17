@@ -22,15 +22,10 @@ public class http_protocol extends Thread{
     int control;
 
     public http_protocol(String input,String uri,Handler handler, int control,int ID){
-
         body = input;
-
         mURL = uri;
-
         this.ID = ID;
-
         this.handler = handler;
-
         this.control = control;
     }
 
@@ -84,6 +79,7 @@ public class http_protocol extends Thread{
             }
 
             reader = new BufferedReader(new InputStreamReader(in));
+
             while((line = reader.readLine())!=null){
                 result += line;
             }

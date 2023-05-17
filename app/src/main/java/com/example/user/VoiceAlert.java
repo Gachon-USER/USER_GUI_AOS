@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,6 +64,74 @@ public class VoiceAlert extends Fragment {
 
     int barCurrentValue = 0;
     int barMaxValue = 0;
+
+    private Button stopButton;
+    private Button cancelButton;
+
+    private CountDownTimer countDownTimer;
+
+    private boolean timerRunning;
+    private boolean firstState;
+
+    private long time = 0;
+    private long tempTime = 0;
+
+    private void startStop(){
+        if(timerRunning){
+            stopTimer();
+        }else{
+            startTimer(-1);
+        }
+    }
+
+    private void startTimer(int sec) {
+        if(firstState){
+            time = ((long)(sec))*1000 + 1000;
+        }else{
+            time = tempTime;
+        }
+
+        countDownTimer = new CountDownTimer(time,1000) {
+            @Override
+            public void onTick(long l) {
+                tempTime = l;
+                updateTimer();
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+
+        stopButton.setText("일시정지");
+        timerRunning = true;
+        firstState = false;
+    }
+
+    private void stopTimer() {
+        countDownTimer.cancel();
+        timerRunning = false;
+        stopButton.setText("계속");
+    }
+
+    private void updateTimer(){
+        int hour = (int) tempTime / 3600000;
+        int minutes = (int) tempTime % 3600000 / 60000;
+        int seconds = (int) tempTime % 3600000 % 60000 / 1000;
+
+        String timeLeftText = "";
+        timeLeftText = ""+ hour + ":";
+
+        if(minutes < 10) timeLeftText +="0";
+        timeLeftText += minutes + ":";
+
+        if(seconds < 10) timeLeftText += "0";
+        timeLeftText += seconds;
+
+        recipeText.setText(timeLeftText);
+
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -165,7 +234,7 @@ public class VoiceAlert extends Fragment {
                     newText += matches.get(i);
                 }
                 // Chat_API 주소지 박아줄것.
-                request_Chat(newText,"http://9059-35-237-67-214.ngrok.io/chat_request");
+                request_Chat(newText,"http://10.0.2.2:8088/chat_request");
 
                 StopRecord();
             }
@@ -188,6 +257,29 @@ public class VoiceAlert extends Fragment {
         bar = rootView.findViewById(R.id.progressBar);
         recipeText = rootView.findViewById(R.id.tmpTextView);
         pageText = rootView.findViewById(R.id.test);
+
+        timerRunning = false;
+        stopButton = rootView.findViewById(R.id.stop_btn);
+        stopButton.setVisibility(stopButton.GONE);
+        cancelButton = rootView.findViewById(R.id.cancel_btn);
+        cancelButton.setVisibility(cancelButton.GONE);
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startStop();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopButton.setVisibility(stopButton.GONE);
+                cancelButton.setVisibility(cancelButton.GONE);
+                firstState = true;
+                stopTimer();
+            }
+        });
 
         recipeText.setText(recipeNowString);
         pageText.setText(Integer.toString(current_index));
@@ -257,7 +349,7 @@ public class VoiceAlert extends Fragment {
             @Override
             public void onClick(View v) {
 
-                control(true);
+                control(1);
                 ResetText();
 
             }
@@ -269,7 +361,7 @@ public class VoiceAlert extends Fragment {
             @Override
             public void onClick(View v) {
 
-                control(false);
+                control(-1);
                 ResetText();
 
             }
@@ -305,10 +397,6 @@ public class VoiceAlert extends Fragment {
     void StartRecord() {
         recording = true;
 
-        //이미지 및 텍스트 변경 예정.
-        /*recordBtn.setImageResource(R.drawable.stop_record);
-        recordTextView.setText("음성 녹음 중지");*/
-
         speechRecognizer=SpeechRecognizer.createSpeechRecognizer(mainActivity.getApplicationContext());
         speechRecognizer.setRecognitionListener(listener);
         speechRecognizer.startListening(speech_intent);
@@ -318,36 +406,41 @@ public class VoiceAlert extends Fragment {
     void StopRecord() {
         recording = false;
 
-        //이미지 및 텍스트 변경 예정.
-        /*recordBtn.setImageResource(R.drawable.start_record);
-        recordTextView.setText("음성 녹음 시작");*/
         speechRecognizer.stopListening();
         speechRecognizer.destroy();   //녹음 중지
         Toast.makeText(mainActivity.getApplicationContext(), "음성 기록을 중지합니다.", Toast.LENGTH_SHORT).show();
     }
 
-    public void control(boolean tmp){
+    public void control(int move){
         if(barMaxValue == barCurrentValue) {
             barCurrentValue = 0;
             current_index = 0;
         } else {
             bar.setVisibility(View.VISIBLE);
-            if(tmp){
-                barCurrentValue += (barMaxValue / maxIndex);
-                current_index += 1;
-                if(current_index == maxIndex){
+            if(move > 0){
+                barCurrentValue += move * (barMaxValue / maxIndex);
+                current_index += move;
+                if(current_index >= maxIndex){
                     Toast.makeText(mainActivity.getApplicationContext(),"마지막 페이지 입니다.",Toast.LENGTH_SHORT).show();
                     current_index = maxIndex;
+                    barCurrentValue = barMaxValue;
                 }
 
                 ResetText();
-            }else{
-                barCurrentValue -= (barMaxValue / maxIndex);
-                current_index -= 1;
+            }else if(move < 0){
+                barCurrentValue += move * (barMaxValue / maxIndex);
+                current_index += move;
                 if(current_index < 0){
                     Toast.makeText(mainActivity.getApplicationContext(),"첫 페이지 입니다.",Toast.LENGTH_SHORT).show();
                     current_index = 0;
+                    barCurrentValue = 0;
                 }
+
+                ResetText();
+            }else if(move == 0){
+                barCurrentValue = 0;
+                current_index = 0;
+                Toast.makeText(mainActivity.getApplicationContext(),"첫 페이지 입니다.",Toast.LENGTH_SHORT).show();
 
                 ResetText();
             }
@@ -355,8 +448,26 @@ public class VoiceAlert extends Fragment {
         bar.setProgress(barCurrentValue);
     }
 
+    public void setTimer(int sec){
+        stopButton.setVisibility(stopButton.VISIBLE);
+        cancelButton.setVisibility(cancelButton.VISIBLE);
+        startTimer(sec);
+    }
+
     public void ResetText(){
         recipeNowString = data.getRecipeData(current_index);
+    }
+    public void TimerText(int sec){
+
+        int min = sec/60;
+
+        sec = sec%60;
+
+        if (min !=0){
+            recipeNowString = "Min : " + Integer.toString(min) + " Sec : " + Integer.toString(sec);
+        }else if (min == 0){
+            recipeNowString = " Sec : " + Integer.toString(sec);
+        }
     }
 
     public void CheckPermission() {
@@ -378,7 +489,7 @@ public class VoiceAlert extends Fragment {
         mainActivity.sendHttpApi(JSON,Url,106,-1);
     }
 
-    public void Chat_result(int control){
+    public void Chat_result(int control,int append){
         /*
         control : Chat_result 에 따른 제어 처리.
             0: timer
@@ -389,21 +500,25 @@ public class VoiceAlert extends Fragment {
         StopRecord();
 
         if (control == 0) {
-            //this.setTimer();
             Toast.makeText(mainActivity.getApplicationContext(), "타이머 설정", Toast.LENGTH_SHORT).show();
             current_tts.speak("타이머를 설정합니다.", TextToSpeech.QUEUE_FLUSH, null, null);
+            this.setTimer(append);
         } else if(control == 2){
-            this.control(true);
+            this.control(append);
             recipeText.setText(recipeNowString);
             pageText.setText(Integer.toString(current_index));
             current_tts.speak(recipeNowString, TextToSpeech.QUEUE_FLUSH, null, null);
         } else if(control == 1){
-            this.control(false);
+            this.control(append);
             recipeText.setText(recipeNowString);
             pageText.setText(Integer.toString(current_index));
             current_tts.speak(recipeNowString, TextToSpeech.QUEUE_FLUSH, null, null);
         } else if(control == 3){
-            //this.repeat();
+            if(append == 0){
+                this.control(0);
+                recipeText.setText(recipeNowString);
+                pageText.setText(Integer.toString(current_index));
+            }
             Toast.makeText(mainActivity.getApplicationContext(), "다시듣기 실행", Toast.LENGTH_SHORT).show();
             current_tts.speak("다시듣기 " + recipeNowString, TextToSpeech.QUEUE_FLUSH, null, null);
         }

@@ -87,15 +87,6 @@ public class EnrollRecipe extends Fragment {
     private static final int REQUEST_CODE = 0;
 
     MainActivity mainActivity;
-    user_info recipeInfo;
-    ArrayList<recipeIngredient> recipeIngredients;
-    ArrayList<recipeCooking> recipeCookings;
-    String name;
-    String url;
-    JSONArray jsonArray = new JSONArray();
-    JsonParser jsonParser = new JsonParser();
-    JSONObject jsoned= new JSONObject();
-    String saveRecipe;
     // 메인 액티비티 위에 올린다.
 
     int cook_num = 1;
@@ -314,8 +305,6 @@ public class EnrollRecipe extends Fragment {
         ingredient_list.setAdapter(ingredientAdapter);
 
         Button button = rootView.findViewById(R.id.bb);//뒤로가기 버튼
-//        name = nameText.get
-//        Button saveButton = rootView.findViewById(R.id.save);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -333,10 +322,6 @@ public class EnrollRecipe extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() { //갤러리에 요청코드 보내기
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(intent, REQUEST_CODE);
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent, 2);
@@ -599,18 +584,14 @@ public class EnrollRecipe extends Fragment {
             if(resultCode == RESULT_OK && data.getData() != null) {
                 selectedImageUri = data.getData();
                 Log.d("img", "MainActivity - onActivityResult() called" + selectedImageUri);
-//                Log.d(TAG, "MainActivity - onActivityResult() called" + getRealPathFromURI(selectedImageUri));
 
                 Glide.with(getActivity())
-//                        .load(getRealPathFromURI(selectedImageUri))
                         .load(selectedImageUri)
                         .into(imageView);
 
             }
             try {
                 Uri uri = data.getData();
-                //Glide.with(getActivity()).load(uri).into(imageView); //다이얼로그 이미지사진에 넣기
-
             } catch (Exception e) {
 
             }

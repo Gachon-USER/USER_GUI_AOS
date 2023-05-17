@@ -405,54 +405,25 @@ public class Main extends Fragment {
         String Url = "http://10.0.2.2:8080/android";
         String JSON = null;
         try{
-            switch (con){
-                case 1010:
-                    Url = Url + "/recipeListFind";
 
-                    JSONObject tmp = new JSONObject();
-                    JSONArray tmp_arr = new JSONArray();
-                    for(int i : input){
-                        JSONObject input_tmp = new JSONObject();
-                        input_tmp.put("ID",i);
-                        tmp_arr.put(input_tmp);
-                    }
-                    tmp.put("find",tmp_arr);
-                    JSON = tmp.toString();
-                    break;
-                case 1011:
-                    Url = Url + "/recipeListFind";
+            if(con == 1010 || con == 1011 || con == 1014){
+                Url = Url + "/recipeListFind";
 
-                    JSONObject ptr = new JSONObject();
-                    JSONArray ptr_arr = new JSONArray();
-                    for(int i : input){
-                        JSONObject input_tmp = new JSONObject();
-                        input_tmp.put("ID",i);
-                        ptr_arr.put(input_tmp);
-                    }
-                    ptr.put("find",ptr_arr);
-                    JSON = ptr.toString();
-                    break;
-                case 1012:
-                    Url = Url + "/recipeIngredient";
-                    JSON = "";
-                    break;
-                case 1013:
-                    Url = Url + "/recipeCooking";
-                    JSON = "";
-                    break;
-                case 1014:
-                    Url = Url + "/recipeListFind";
-
-                    JSONObject ptr_2 = new JSONObject();
-                    JSONArray ptr_arr_2 = new JSONArray();
-                    for(int i : input){
-                        JSONObject input_tmp = new JSONObject();
-                        input_tmp.put("ID",i);
-                        ptr_arr_2.put(input_tmp);
-                    }
-                    ptr_2.put("find",ptr_arr_2);
-                    JSON = ptr_2.toString();
-                    break;
+                JSONObject tmp = new JSONObject();
+                JSONArray tmp_arr = new JSONArray();
+                for(int i : input){
+                    JSONObject input_tmp = new JSONObject();
+                    input_tmp.put("ID",i);
+                    tmp_arr.put(input_tmp);
+                }
+                tmp.put("find",tmp_arr);
+                JSON = tmp.toString();
+            }else if(con == 1012 ){
+                Url = Url + "/recipeIngredient";
+                JSON = "";
+            }else if(con == 1013){
+                Url = Url + "/recipeCooking";
+                JSON = "";
             }
         }catch (JSONException e){
             e.printStackTrace();
