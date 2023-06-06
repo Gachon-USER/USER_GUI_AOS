@@ -9,6 +9,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.os.IResultReceiver;
@@ -45,6 +46,71 @@ public class MainActivity extends AppCompatActivity {
     String foodtaste;
 
     MyHandler handle = new MyHandler(this);
+
+    private CountDownTimer countDownTimer;
+
+    public boolean timerRunning;
+    public boolean firstState;
+
+    public long time = 0;
+    public long tempTime = 0;
+
+    public void startStop(){
+        if(timerRunning){
+            stopTimer();
+        }else{
+            startTimer(-1);
+        }
+    }
+
+    public void startTimer(int sec) {
+        if(firstState){
+            time = ((long)(sec))*1000 + 1000;
+        }else{
+            time = tempTime;
+        }
+
+        countDownTimer = new CountDownTimer(time,1000) {
+            @Override
+            public void onTick(long l) {
+                tempTime = l;
+                updateTimer();
+            }
+
+            @Override
+            public void onFinish() {
+                frameLayout6.TimerEnd();
+            }
+        }.start();
+
+        frameLayout6.setTimerButton("일시정지");
+        timerRunning = true;
+        firstState = false;
+    }
+
+    public void stopTimer() {
+        countDownTimer.cancel();
+        timerRunning = false;
+        frameLayout6.setTimerButton("계속");
+    }
+
+    public void updateTimer(){
+        int hour = (int) tempTime / 3600000;
+        int minutes = (int) tempTime % 3600000 / 60000;
+        int seconds = (int) tempTime % 3600000 % 60000 / 1000;
+
+        String timeLeftText = "";
+        timeLeftText = ""+ hour + ":";
+
+        if(minutes < 10) timeLeftText +="0";
+        timeLeftText += minutes + ":";
+
+        if(seconds < 10) timeLeftText += "0";
+        timeLeftText += seconds;
+
+        frameLayout6.setTimerText(timeLeftText);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -262,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
                     activity.frameLayout1.send_result(result, 4);
                     // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.
 
-                }else if(msg.what == 102) {
+                }else if(msg.what == 102 || msg.what == 1024) {
 
                     result = (String) msg.obj;
                     activity.frameLayout2.send_result(result, 0);
@@ -314,18 +380,22 @@ public class MainActivity extends AppCompatActivity {
                         result = (String) msg.obj;
                         Log.d("JSON", "handleMessage: " + result);
 
+                        int control = -1;
+                        int append = -1;
+
                         try{
                             JSONObject json = new JSONObject(result);
                             String intent = json.getString("intent");
-                            String NER = json.getString("NER_result");
-                            int control = Integer.parseInt(intent);
-                            int append = Integer.parseInt(NER);
+                            String NER = json.getString("append");
+                            control = Integer.parseInt(intent);
+                            append = Integer.parseInt(NER);
                             Log.d("intent","result : "+ control);
-                            activity.frameLayout6.Chat_result(control,append);
 
                         }catch (Exception e){
                             e.printStackTrace();
                         }
+
+                        activity.frameLayout6.Chat_result(control,append);
 
                         //activity.frameLayout6.send_result(result);
                     // http 클래스에서 JSON 데이터를 넘겨받지 못한 경우.

@@ -158,7 +158,7 @@ public class FoodList extends Fragment {
     }
 
     public void get_recipe_data(int con, int ID,String Category){
-        String Url = "http://10.0.2.2:8080/android";
+        String Url = "http://172.30.1.98:8080/android";
 
         switch (con){
             case 102:
@@ -166,7 +166,8 @@ public class FoodList extends Fragment {
                 if(Category == null){
                     Url = Url + "/recipeList";
                 }else{
-                    Url = Url + "/recipeList/category?tag_string="+Category;
+                    Url = Url + "/recipeListByTag?tag_string="+Category;
+                    con = 1024;
                 }
                 break;
             case 1021:
@@ -184,7 +185,7 @@ public class FoodList extends Fragment {
     public void set_recipe_info_list(JSONObject input){
 
         try {
-            JSONArray list = input.getJSONArray("recipelist");
+            JSONArray list = input.getJSONArray("recipe");
 
             for(int i=0;i< list.length();i++){
                 JSONObject tmp = list.getJSONObject(i);

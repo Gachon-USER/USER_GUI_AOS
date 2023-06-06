@@ -53,13 +53,16 @@ public class http_protocol extends Thread{
             con.setUseCaches(false);
             con.setReadTimeout(20000);
             con.setConnectTimeout(20000);
-            con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");
-            con.setDoOutput(true); //OutputStream 을 사용해서 post body 데이터 전송
-
-            try(OutputStream os = con.getOutputStream()) {
-                byte[] input = ParamData.getBytes("utf-8");
-                os.write(input, 0, input.length);
+            if (this.control == 1024){
+                con.setRequestMethod("GET");
+            }else{
+                con.setRequestMethod("POST");
+                con.setDoOutput(true); //OutputStream 을 사용해서 post body 데이터 전송
+                try(OutputStream os = con.getOutputStream()) {
+                    byte[] input = ParamData.getBytes("utf-8");
+                    os.write(input, 0, input.length);
+                }
             }
 
             con.connect();
