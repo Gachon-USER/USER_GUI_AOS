@@ -13,8 +13,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,15 +37,19 @@ public class Main extends Fragment {
     RecipeAdapter userRecipeAdapter;
     String user_id;
 
+    int last_id;
+
+    TextView Last_info;
+    TextView Last_tag;
+
+    ImageView lastView;
+
    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mainActivity = (MainActivity) getActivity();
-
-        int[] ptr = new int[1];
-        ptr[0] = mainActivity.lastfood;
-
-        get_recipe_data(1010,-1,ptr);
+        user_id = mainActivity.UID;
+        last_id = mainActivity.lastfood;
     }
 
     // 메인 액티비티에서 내려 온다.
@@ -54,15 +61,17 @@ public class Main extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        int[] ptr = new int[1];
+        ptr[0] = last_id;
+        this.get_recipe_data(1014,-1,ptr);
+
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
 
-        TextView Last_info = rootView.findViewById(R.id.Last_info);
+        Last_info = rootView.findViewById(R.id.Last_info);
 
-        TextView Last_tag = rootView.findViewById(R.id.Last_tag);
+        Last_tag = rootView.findViewById(R.id.Last_tag);
 
-//        Last_info.setText(selected_info.getName());
-
-//        Last_tag.setText(selected_info.getTag());
+        lastView = (ImageView)rootView.findViewById(R.id.imageView2);
 
         ImageButton button2 = rootView.findViewById(R.id.toL);
 
@@ -147,7 +156,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","kor");
+                data.putString("Category","한식");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -163,7 +172,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","jap");
+                data.putString("Category","일식");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -177,7 +186,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","chi");
+                data.putString("Category","중식");
                 mainActivity.fragmentChange(2,data);
             }
 
@@ -192,7 +201,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","wes");
+                data.putString("Category","양식");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -209,7 +218,7 @@ public class Main extends Fragment {
             public void onClick(View v) {
 
                 Bundle data = new Bundle(1);
-                data.putString("Category","ckn");
+                data.putString("Category","닭고기");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -225,7 +234,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","cow");
+                data.putString("Category","소고기");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -239,7 +248,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","pig");
+                data.putString("Category","돼지고기");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -255,7 +264,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","she");
+                data.putString("Category","양고기");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -267,12 +276,11 @@ public class Main extends Fragment {
 
 
         ImageButton spicyCategory = rootView.findViewById(R.id.spi);
-
         spicyCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","spi");
+                data.putString("Category","매운");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -288,7 +296,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","sal");
+                data.putString("Category","짠맛");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -302,7 +310,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","swe");
+                data.putString("Category","단맛");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -318,7 +326,7 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle(1);
-                data.putString("Category","sou");
+                data.putString("Category","신맛");
                 mainActivity.fragmentChange(2,data);
 
             }
@@ -343,7 +351,7 @@ public class Main extends Fragment {
 
         this.InitializeRecipeData();
 
-//        this.get_recommend(selected_info.getID(),user_id,0,2);
+        this.get_recommend(last_id,user_id,0,2);
 
         contentRecipeAdapter = new RecipeAdapter(getActivity(), contentRecipeList);
         userRecipeAdapter = new RecipeAdapter(getActivity(), userRecipeList);
@@ -396,13 +404,13 @@ public class Main extends Fragment {
 
     public void get_recommend(int recipe_id,String user_id,int type, int num){
 
-        String Url = "http://9059-35-237-67-214.ngrok.io/recommend";
-        mainActivity.sendHttpApi("{\"last_ID\" : "+ Integer.toString(recipe_id) +",\"user_ID\" : "+ user_id +",\"type\" : "+ Integer.toString(type) +",\"num\" : "+ Integer.toString(num) +"}",Url,101,recipe_id);
+        String Url = "http://172.30.1.98:8088/recommend";
+        mainActivity.sendHttpApi("{\"last_ID\" : "+ Integer.toString(recipe_id) +",\"user_ID\" : \""+ user_id +"\",\"type\" : "+ Integer.toString(type) +",\"num\" : "+ Integer.toString(num) +"}",Url,101,recipe_id);
 
     }
 
     public void get_recipe_data(int con, int ID,int[] input){
-        String Url = "http://10.0.2.2:8080/android";
+        String Url = "http://172.30.1.98:8080/android";
         String JSON = null;
         try{
 
@@ -452,6 +460,12 @@ public class Main extends Fragment {
                     userRecipeList.add(tmp_info);
                 }else if(con == 4){
                     selected_info = tmp_info;
+                    Last_info.setText(selected_info.getName());
+                    Last_tag.setText(selected_info.getTag());
+                    Glide.with(getActivity())
+//                        .load(getRealPathFromURI(selectedImageUri))
+                            .load(tmp_info.getUrl())
+                            .into(lastView);
                 }
             }
 

@@ -69,7 +69,7 @@ public class LogInActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    getUser("http://10.0.2.2:8080/android/getUserDetail",user.getUid());
+                    getUser("http://172.30.1.98:8080/android/getUserDetail",user.getUid());
                 } else {
 
                 }

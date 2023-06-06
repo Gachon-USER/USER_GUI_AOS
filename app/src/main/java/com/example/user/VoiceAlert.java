@@ -68,71 +68,6 @@ public class VoiceAlert extends Fragment {
     private Button stopButton;
     private Button cancelButton;
 
-    private CountDownTimer countDownTimer;
-
-    private boolean timerRunning;
-    private boolean firstState;
-
-    private long time = 0;
-    private long tempTime = 0;
-
-    private void startStop(){
-        if(timerRunning){
-            stopTimer();
-        }else{
-            startTimer(-1);
-        }
-    }
-
-    private void startTimer(int sec) {
-        if(firstState){
-            time = ((long)(sec))*1000 + 1000;
-        }else{
-            time = tempTime;
-        }
-
-        countDownTimer = new CountDownTimer(time,1000) {
-            @Override
-            public void onTick(long l) {
-                tempTime = l;
-                updateTimer();
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        }.start();
-
-        stopButton.setText("일시정지");
-        timerRunning = true;
-        firstState = false;
-    }
-
-    private void stopTimer() {
-        countDownTimer.cancel();
-        timerRunning = false;
-        stopButton.setText("계속");
-    }
-
-    private void updateTimer(){
-        int hour = (int) tempTime / 3600000;
-        int minutes = (int) tempTime % 3600000 / 60000;
-        int seconds = (int) tempTime % 3600000 % 60000 / 1000;
-
-        String timeLeftText = "";
-        timeLeftText = ""+ hour + ":";
-
-        if(minutes < 10) timeLeftText +="0";
-        timeLeftText += minutes + ":";
-
-        if(seconds < 10) timeLeftText += "0";
-        timeLeftText += seconds;
-
-        recipeText.setText(timeLeftText);
-
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -234,9 +169,7 @@ public class VoiceAlert extends Fragment {
                     newText += matches.get(i);
                 }
                 // Chat_API 주소지 박아줄것.
-                request_Chat(newText,"http://10.0.2.2:8088/chat_request");
-
-                StopRecord();
+                request_Chat(newText,"http://172.30.1.98:8084/chat_request");
             }
 
             @Override
@@ -258,7 +191,8 @@ public class VoiceAlert extends Fragment {
         recipeText = rootView.findViewById(R.id.tmpTextView);
         pageText = rootView.findViewById(R.id.test);
 
-        timerRunning = false;
+        mainActivity.timerRunning = false;
+        mainActivity.firstState = true;
         stopButton = rootView.findViewById(R.id.stop_btn);
         stopButton.setVisibility(stopButton.GONE);
         cancelButton = rootView.findViewById(R.id.cancel_btn);
@@ -267,7 +201,7 @@ public class VoiceAlert extends Fragment {
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startStop();
+                mainActivity.startStop();
             }
         });
 
@@ -276,8 +210,8 @@ public class VoiceAlert extends Fragment {
             public void onClick(View view) {
                 stopButton.setVisibility(stopButton.GONE);
                 cancelButton.setVisibility(cancelButton.GONE);
-                firstState = true;
-                stopTimer();
+                mainActivity.firstState = true;
+                mainActivity.stopTimer();
             }
         });
 
@@ -394,6 +328,23 @@ public class VoiceAlert extends Fragment {
         return rootView;
     }
 
+    void setTimerButton(String text){
+        stopButton.setText(text);
+    }
+
+    void setTimerText(String text){
+        recipeText.setText(text);
+    }
+
+    void TimerEnd(){
+        current_tts.speak("타이머가 종료되었습니다.", TextToSpeech.QUEUE_FLUSH, null, null);
+        stopButton.setVisibility(stopButton.GONE);
+        cancelButton.setVisibility(cancelButton.GONE);
+        mainActivity.firstState = true;
+        while(current_tts.isSpeaking()){}
+        StartRecord();
+    }
+
     void StartRecord() {
         recording = true;
 
@@ -405,9 +356,7 @@ public class VoiceAlert extends Fragment {
     //녹음 중지
     void StopRecord() {
         recording = false;
-
-        speechRecognizer.stopListening();
-        speechRecognizer.destroy();   //녹음 중지
+        speechRecognizer.destroy(); //녹음 중지
         Toast.makeText(mainActivity.getApplicationContext(), "음성 기록을 중지합니다.", Toast.LENGTH_SHORT).show();
     }
 
@@ -446,12 +395,13 @@ public class VoiceAlert extends Fragment {
             }
         }
         bar.setProgress(barCurrentValue);
+        recipeText.setText(recipeNowString);
     }
 
     public void setTimer(int sec){
         stopButton.setVisibility(stopButton.VISIBLE);
         cancelButton.setVisibility(cancelButton.VISIBLE);
-        startTimer(sec);
+        mainActivity.startTimer(sec);
     }
 
     public void ResetText(){
@@ -499,24 +449,23 @@ public class VoiceAlert extends Fragment {
         */
         StopRecord();
 
+        while(recording){}
+
         if (control == 0) {
             Toast.makeText(mainActivity.getApplicationContext(), "타이머 설정", Toast.LENGTH_SHORT).show();
             current_tts.speak("타이머를 설정합니다.", TextToSpeech.QUEUE_FLUSH, null, null);
             this.setTimer(append);
         } else if(control == 2){
             this.control(append);
-            recipeText.setText(recipeNowString);
             pageText.setText(Integer.toString(current_index));
             current_tts.speak(recipeNowString, TextToSpeech.QUEUE_FLUSH, null, null);
         } else if(control == 1){
             this.control(append);
-            recipeText.setText(recipeNowString);
             pageText.setText(Integer.toString(current_index));
             current_tts.speak(recipeNowString, TextToSpeech.QUEUE_FLUSH, null, null);
         } else if(control == 3){
             if(append == 0){
                 this.control(0);
-                recipeText.setText(recipeNowString);
                 pageText.setText(Integer.toString(current_index));
             }
             Toast.makeText(mainActivity.getApplicationContext(), "다시듣기 실행", Toast.LENGTH_SHORT).show();
@@ -525,7 +474,11 @@ public class VoiceAlert extends Fragment {
 
         while(current_tts.isSpeaking()){}
 
-        StartRecord();
+        if(control == 0){
+            StopRecord();
+        }else{
+            StartRecord();
+        }
 
     }
 
